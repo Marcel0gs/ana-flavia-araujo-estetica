@@ -351,14 +351,35 @@ h1 em,h2 em{font-style:italic;color:var(--nude-texto)}
   position:relative;aspect-ratio:3/4;border-radius:999px 999px 26px 26px;overflow:hidden;
   background:var(--areia);box-shadow:0 40px 80px rgba(46,48,46,.22),0 0 0 10px rgba(255,253,249,.55);
 }
-.hero__arco img{width:100%;height:100%;object-fit:cover;object-position:50% 12%}
-.js .hero__arco img{transform:scale(1.1)}
-.pronto .hero__arco img{animation:kenburns 3.2s var(--suave) both}
-@keyframes kenburns{from{transform:scale(1.1)}to{transform:scale(1)}}
+/* as salas passando (a capa da Bem Viver): cada foto entra em dissolucao com
+   zoom lento; a barrinha acesa enche e, quando termina, troca a foto */
+.capa__slide{position:absolute;inset:0;margin:0;opacity:0;transition:opacity 1.3s ease}
+.capa__slide.ativo{opacity:1;z-index:1}
+.capa__slide img{width:100%;height:100%;object-fit:cover}
+.capa__slide:first-child img{object-position:50% 12%}
+.capa__slide.ativo img{animation:capazoom 7.5s linear both}
+.capa--pausa .capa__slide.ativo img{animation-play-state:paused}
+@keyframes capazoom{from{transform:scale(1.12)}to{transform:scale(1.02)}}
+.hero__arco::after{content:"";position:absolute;left:0;right:0;bottom:0;height:40%;z-index:2;background:linear-gradient(to top,rgba(44,47,45,.72),rgba(44,47,45,0));pointer-events:none}
+.capa__barra{
+  position:absolute;z-index:3;left:1.1rem;right:.9rem;bottom:.9rem;
+  display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:.35rem .8rem;color:#fff;
+}
+.capa__legenda{display:flex;align-items:baseline;gap:.6rem;margin:0;font:500 clamp(1.1rem,1.6vw,1.35rem)/1.15 var(--serif);text-shadow:0 2px 12px rgba(0,0,0,.3)}
+.capa__num{font:600 .7rem/1 var(--sans);letter-spacing:.16em;color:var(--nude-vivo)}
+.capa__pontos{display:flex;gap:.1rem}
+.capa__ponto{display:grid;place-items:center;width:34px;height:34px;padding:0;background:none;border:0;cursor:pointer}
+.capa__ponto i{position:relative;display:block;width:100%;height:3px;border-radius:3px;background:rgba(255,255,255,.4);overflow:hidden}
+.capa__ponto i::after{content:"";position:absolute;inset:0;background:#fff;transform:scaleX(0);transform-origin:left}
+.capa__ponto.ativo i::after{animation:enche var(--tempo,6.5s) linear forwards}
+.capa--pausa .capa__ponto.ativo i::after{animation-play-state:paused}
+.capa__ponto:focus-visible{outline-color:#fff}
+@keyframes enche{to{transform:scaleX(1)}}
 /* o filete acompanha o arco por fora, com a mesma folga nos quatro lados */
 .hero__filete{position:absolute;inset:-18px;border-radius:999px 999px 34px 34px;border:1px solid var(--nude-forte);opacity:.55;pointer-events:none}
+/* a etiqueta mora no meio da borda esquerda: embaixo fica a legenda das salas */
 .hero__etiqueta{
-  position:absolute;left:-8%;bottom:9%;z-index:2;
+  position:absolute;left:-10%;top:30%;z-index:4;
   display:flex;align-items:center;gap:.8rem;padding:.85rem 1.1rem;border-radius:16px;
   background:var(--papel);box-shadow:0 18px 40px rgba(46,48,46,.16);border:1px solid var(--linho);
 }
@@ -379,7 +400,8 @@ h1 em,h2 em{font-style:italic;color:var(--nude-texto)}
   .hero__foto{order:-1;width:min(72vw,330px)}
   .hero__arco{aspect-ratio:4/5}
   .hero__filete{inset:-12px}
-  .hero__etiqueta{left:-12%;bottom:6%;padding:.65rem .85rem}
+  .hero__etiqueta{left:-12%;top:26%;padding:.65rem .85rem}
+  .capa__legenda{font-size:1.05rem}
   .hero__etiqueta strong{font-size:1.6rem}
   .hero__arcos{width:120vw;right:-40%;top:-8%}
   .hero__texto{text-align:left}
@@ -610,6 +632,53 @@ main > section:not(.hero),.rodape{position:relative;z-index:1}
 .trat-nota{margin:clamp(1.6rem,3.2vw,2.2rem) 0 0;font-size:.95rem;color:var(--claro-suave);max-width:62ch}
 .trat-nota a{color:var(--nude-vivo)}
 
+/* =====================================================================
+   ANTES E DEPOIS: o componente da cortina (templates/componentes/
+   antes-depois.html), com as regras de la. Pedido dele (14/10/2026):
+   "pelo menos duas, elas tiram se nao gostarem".
+   - Os pares chegaram como montagem (lado a lado e em cima/embaixo).
+     Separados na costura e alinhados com alinhar-antes-depois.js
+     (medidas no CLAUDE.md). Foto como saiu, so cortada: nada de retoque.
+   - A frase "Resultados variam de pessoa para pessoa" fica. Nao apagar.
+   - Legenda diz a regiao, nao promete resultado.
+   ===================================================================== */
+.ad{--ad-linha:#fff;--ad-selo:rgba(44,47,45,.62);--ad-selo-txt:#fff;--ad-raio:var(--raio)}
+.ads{display:grid;gap:clamp(1.2rem,3vw,2rem)}
+@media (min-width:820px){.ads--2{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.ad{margin:0}
+.ad__quadro{
+  --p:50%;position:relative;overflow:hidden;border-radius:var(--ad-raio);
+  aspect-ratio:4/3;background:var(--areia);contain:paint;box-shadow:0 24px 50px rgba(46,48,46,.14);
+}
+.ad__img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;user-select:none;-webkit-user-drag:none}
+.ad__corte{position:absolute;inset:0;clip-path:inset(0 calc(100% - var(--p)) 0 0)}
+.ad__linha{position:absolute;top:0;bottom:0;left:var(--p);width:2px;margin-left:-1px;background:var(--ad-linha);box-shadow:0 0 0 1px rgba(0,0,0,.18);pointer-events:none}
+.ad__alca{
+  position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+  width:44px;height:44px;border-radius:50%;background:var(--ad-linha);color:var(--grafite-2);
+  display:grid;place-items:center;box-shadow:0 4px 14px rgba(0,0,0,.3);transition:transform .18s ease,box-shadow .18s ease;
+}
+.ad__alca svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.ad__selo{
+  position:absolute;top:.7rem;padding:.3rem .7rem;border-radius:999px;
+  background:var(--ad-selo);color:var(--ad-selo-txt);
+  font-size:.66rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;pointer-events:none;transition:opacity .2s ease;
+}
+.ad__selo--a{left:.7rem}
+.ad__selo--d{right:.7rem}
+.ad__range{
+  position:absolute;inset:0;width:100%;height:100%;margin:0;opacity:0;cursor:ew-resize;
+  -webkit-appearance:none;appearance:none;background:transparent;touch-action:pan-y;
+}
+.ad__range::-webkit-slider-thumb{-webkit-appearance:none;width:56px;height:100%}
+.ad__range::-moz-range-thumb{width:56px;height:100%;border:0;opacity:0}
+.ad__quadro:hover .ad__alca{transform:translate(-50%,-50%) scale(1.06)}
+.ad__range:active + .ad__linha .ad__alca{transform:translate(-50%,-50%) scale(1.12)}
+.ad__range:focus-visible + .ad__linha .ad__alca{box-shadow:0 0 0 3px var(--ad-linha),0 0 0 6px rgba(0,0,0,.35)}
+.ad__legenda{margin-top:.9rem;font-size:.95rem;line-height:1.5;color:var(--tinta-suave)}
+.ad__legenda b{display:block;font:600 1.3rem/1.2 var(--serif);color:var(--tinta)}
+.ad__aviso{margin:clamp(1.4rem,3vw,2rem) 0 0;text-align:center;font-size:.86rem;color:var(--tinta-suave)}
+
 /* ====================== wellhub ======================
    Regras tiradas do story fixado dela ("Atendimentos pelo Gympass").
    Mudou a regra no app, muda aqui. */
@@ -814,7 +883,9 @@ main > section:not(.hero),.rodape{position:relative;z-index:1}
    ===================================================================== */
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
-  .hero__folhas img,.pronto .hero__arco img,.js .hero__arco img{animation:none;transform:none}
+  .hero__folhas img,.capa__slide.ativo img{animation:none;transform:none}
+  /* as salas so trocam pelas barrinhas */
+  .capa__ponto.ativo i::after{animation:none;transform:scaleX(1)}
   .hero__grade{transform:none}
   .faixa__pista{animation:none;width:auto;justify-content:center}
   .faixa__trilho{flex-wrap:wrap;justify-content:center;white-space:normal;row-gap:.7rem;padding:0 1.25rem}
@@ -910,6 +981,7 @@ main > section:not(.hero),.rodape{position:relative;z-index:1}
     </a>
     <nav class="menu" aria-label="Seções">
       <a href="#tratamentos">Tratamentos</a>
+      <a href="#resultados">Resultados</a>
       <a href="#wellhub">Wellhub</a>
       <a href="#quem-cuida">Quem cuida</a>
       <a href="#avaliacoes">Avaliações</a>
@@ -951,13 +1023,27 @@ main > section:not(.hero),.rodape{position:relative;z-index:1}
     </div>
     <div class="hero__foto">
       <span class="hero__filete" aria-hidden="true"></span>
-      <div class="hero__arco">
-        <img src="assets/img/hero-fachada.webp" width="720" height="992" fetchpriority="high" decoding="async"
-             alt="Fachada da Ana Flávia Araújo Estética: placa clara com o monograma AF e a porta de vidro aberta para a recepção">
-      </div>
-      <div class="hero__etiqueta" aria-hidden="true">
-        <strong>5,0</strong>
-        <div><span class="estrelas">★★★★★</span><span>37 avaliações<br>no Google</span></div>
+      <!-- As salas passando, como a capa da Clinica Bem Viver (pedido dele, 14/10/2026):
+           zoom lento, legenda, barrinhas clicaveis, pausa com o cursor em cima. O fim da
+           animacao da barrinha e o relogio da troca. Fotos reais do espaco dela. -->
+      <div class="hero__arco" data-capa>
+        <figure class="capa__slide ativo" data-nome="A fachada"><img src="assets/img/hero-fachada.webp" width="720" height="992" fetchpriority="high" decoding="async"
+             alt="Fachada da Ana Flávia Araújo Estética: placa clara com o monograma AF e a porta de vidro aberta para a recepção"></figure>
+        <figure class="capa__slide" data-nome="A recepção"><img src="assets/img/espaco-recepcao.webp" width="477" height="636" fetchpriority="low" decoding="async"
+             alt="Recepção com o monograma AF na parede, duas poltronas claras de pé dourado e uma mesinha com plantas"></figure>
+        <figure class="capa__slide" data-nome="A sala de atendimento"><img src="assets/img/espaco-sala.webp" width="501" height="668" fetchpriority="low" decoding="async"
+             alt="Sala de atendimento com maca, espelho em arco, aparelho sobre o carrinho e prateleira com planta"></figure>
+        <figure class="capa__slide" data-nome="O corredor e a esmalteria"><img src="assets/img/espaco-corredor.webp" width="503" height="671" fetchpriority="low" decoding="async"
+             alt="Corredor com o cantinho do café e, ao fundo, a bancada da esmalteria"></figure>
+        <div class="capa__barra">
+          <p class="capa__legenda" aria-live="polite"><span class="capa__num" data-capa-num>01</span><span data-capa-nome>A fachada</span></p>
+          <div class="capa__pontos">
+            <button class="capa__ponto ativo" type="button" aria-label="Ver a fachada" aria-pressed="true"><i></i></button>
+            <button class="capa__ponto" type="button" aria-label="Ver a recepção" aria-pressed="false"><i></i></button>
+            <button class="capa__ponto" type="button" aria-label="Ver a sala de atendimento" aria-pressed="false"><i></i></button>
+            <button class="capa__ponto" type="button" aria-label="Ver o corredor e a esmalteria" aria-pressed="false"><i></i></button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -1019,7 +1105,7 @@ main > section:not(.hero),.rodape{position:relative;z-index:1}
     </div>
     <div class="compo" data-px-pai aria-hidden="true">
       <!-- a recepcao vista pela porta aberta (foto da ficha do Google dela) -->
-      <div class="compo__a" data-px="-0.05"><img src="assets/img/recepcao.webp" width="560" height="720" loading="lazy" decoding="async" alt=""></div>
+      <div class="compo__a" data-px="-0.05"><img src="assets/img/espaco-recepcao.webp" width="477" height="636" loading="lazy" decoding="async" alt=""></div>
       <span class="compo__anel" data-px="-0.16">
         <svg viewBox="0 0 200 200"><path stroke="#D8CDBB" stroke-width="10" d="M20 200A180 180 0 0 1 200 20"/><path stroke="#E6DED1" stroke-width="10" d="M46 200A154 154 0 0 1 200 46"/></svg>
       </span>
@@ -1230,6 +1316,59 @@ main > section:not(.hero),.rodape{position:relative;z-index:1}
   </div>
   <div class="env">
     <p class="trat-nota">Não achou o que procura? <a href="https://wa.me/5531986388648?text=Ol%C3%A1!%20Vim%20pelo%20site%20e%20tenho%20uma%20d%C3%BAvida%20sobre%20os%20tratamentos." target="_blank" rel="noopener">Pergunte pelo WhatsApp</a>: os protocolos são montados para cada pessoa.</p>
+  </div>
+</section>
+
+<!-- ===== antes e depois =====
+     ⚠ A FOTO DE BAIXO E A **DEPOIS**, e a cortada por cima e a **ANTES** (a camada
+     cortada aparece do lado ESQUERDO, onde fica o selo "Antes"). Trocar a ordem
+     inverte a leitura sem inverter os selos.
+     ⚠ ORDEM DE CADA PAR A CONFIRMAR COM ELA: a montagem veio sem rotulo. Lido como
+     antes = esquerda (celulite) e antes = em cima (abdomen), o padrao das montagens.
+     Antes e depois trocado e propaganda enganosa.
+     ⚠ Autorizacao de imagem das clientes: pendencia. O par do abdomen mostra uma
+     tatuagem. Ele decidiu manter ("elas tiram se nao gostarem"). -->
+<section class="secao" id="resultados">
+  <div class="env">
+    <div class="cabeca cabeca--centro">
+      <span class="olho">Antes e depois</span>
+      <h2>O que muda, <em>visto de perto.</em></h2>
+      <p class="chamada">Arraste a linha para comparar. São fotos de clientes da Ana Flávia.</p>
+    </div>
+    <div class="ads ads--2">
+      <figure class="ad" data-ad>
+        <div class="ad__quadro">
+          <img class="ad__img" src="assets/img/ad-celulite-depois.webp" width="640" height="480" loading="lazy" decoding="async" alt="Depois: coxa vista de lado, com a pele mais lisa">
+          <div class="ad__corte">
+            <img class="ad__img" src="assets/img/ad-celulite-antes.webp" width="640" height="480" loading="lazy" decoding="async" alt="Antes: coxa vista de lado, com as ondulações da celulite">
+          </div>
+          <span class="ad__selo ad__selo--d" data-selo-d>Depois</span>
+          <span class="ad__selo ad__selo--a" data-selo-a>Antes</span>
+          <div class="ad__linha" aria-hidden="true">
+            <span class="ad__alca"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6 4 12l5 6M15 6l5 6-5 6"/></svg></span>
+          </div>
+          <input class="ad__range" type="range" min="0" max="100" step="0.1" value="50" aria-label="Comparar antes e depois da celulite na coxa: arraste, ou use as setas do teclado">
+        </div>
+        <figcaption class="ad__legenda"><b>Celulite</b>Região da coxa</figcaption>
+      </figure>
+      <figure class="ad" data-ad>
+        <div class="ad__quadro">
+          <img class="ad__img" src="assets/img/ad-abdomen-depois.webp" width="640" height="480" loading="lazy" decoding="async" alt="Depois: lateral do abdômen com a cintura mais marcada">
+          <div class="ad__corte">
+            <img class="ad__img" src="assets/img/ad-abdomen-antes.webp" width="640" height="480" loading="lazy" decoding="async" alt="Antes: lateral do abdômen, cliente deitada sobre a toalha">
+          </div>
+          <span class="ad__selo ad__selo--d" data-selo-d>Depois</span>
+          <span class="ad__selo ad__selo--a" data-selo-a>Antes</span>
+          <div class="ad__linha" aria-hidden="true">
+            <span class="ad__alca"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6 4 12l5 6M15 6l5 6-5 6"/></svg></span>
+          </div>
+          <input class="ad__range" type="range" min="0" max="100" step="0.1" value="50" aria-label="Comparar antes e depois do contorno da cintura: arraste, ou use as setas do teclado">
+        </div>
+        <figcaption class="ad__legenda"><b>Contorno da cintura</b>Região do abdômen</figcaption>
+      </figure>
+    </div>
+    <!-- regra 4 do componente: nao apagar -->
+    <p class="ad__aviso">Resultados variam de pessoa para pessoa.</p>
   </div>
 </section>
 
@@ -1479,6 +1618,7 @@ main > section:not(.hero),.rodape{position:relative;z-index:1}
         <h4>Navegue</h4>
         <ul class="rodape__lista">
           <li><a href="#tratamentos">Tratamentos</a></li>
+          <li><a href="#resultados">Antes e depois</a></li>
           <li><a href="#wellhub">Wellhub</a></li>
           <li><a href="#quem-cuida">Quem cuida</a></li>
           <li><a href="#avaliacoes">Avaliações</a></li>
@@ -1529,6 +1669,41 @@ main > section:not(.hero),.rodape{position:relative;z-index:1}
     setTimeout(sair, 6000);   /* rede lenta ou aba em segundo plano: nunca prender ninguem */
     intro.addEventListener("click", sair);
     document.addEventListener("keydown", function(e){ if (e.key === "Escape") sair(); });
+  }
+
+  /* ---------- 1b. as salas passando no arco (a capa da Bem Viver) ----------
+     O fim da animacao da barrinha acesa e o relogio: pausar a barrinha
+     (cursor em cima, aba escondida) pausa a troca sem timer paralelo. */
+  var capa = $("[data-capa]");
+  if (capa) {
+    var salas = $$(".capa__slide", capa), botoesCapa = $$(".capa__ponto", capa);
+    var numCapa = $("[data-capa-num]", capa), nomeCapa = $("[data-capa-nome]", capa);
+    var sala = 0;
+    var vaiPara = function(i){
+      sala = (i + salas.length) % salas.length;
+      salas.forEach(function(s, k){ s.classList.toggle("ativo", k === sala); });
+      botoesCapa.forEach(function(b, k){ b.classList.remove("ativo"); b.setAttribute("aria-pressed", k === sala ? "true" : "false"); });
+      void botoesCapa[sala].offsetWidth;   /* reinicia a barrinha mesmo clicando na mesma */
+      botoesCapa[sala].classList.add("ativo");
+      if (numCapa) numCapa.textContent = "0" + (sala + 1);
+      if (nomeCapa) nomeCapa.textContent = salas[sala].getAttribute("data-nome");
+    };
+    botoesCapa.forEach(function(b, k){
+      b.addEventListener("click", function(){ vaiPara(k); });
+      if (!reduzido) b.addEventListener("animationend", function(){ if (k === sala) vaiPara(sala + 1); });
+    });
+    var pausaCapa = function(sim){ capa.classList.toggle("capa--pausa", sim); };
+    capa.addEventListener("pointerenter", function(e){ if (e.pointerType === "mouse") pausaCapa(true); });
+    capa.addEventListener("pointerleave", function(){ pausaCapa(false); });
+    document.addEventListener("visibilitychange", function(){ pausaCapa(document.hidden); });
+    /* durante a abertura a capa espera parada */
+    if (d.classList.contains("com-intro")) {
+      pausaCapa(true);
+      var esperaAbrir = new MutationObserver(function(){
+        if (d.classList.contains("pronto")) { pausaCapa(false); vaiPara(0); esperaAbrir.disconnect(); }
+      });
+      esperaAbrir.observe(d, { attributes: true, attributeFilter: ["class"] });
+    }
   }
 
   /* ---------- 2. topo, barra de progresso e botao flutuante ---------- */
@@ -1767,6 +1942,47 @@ main > section:not(.hero),.rodape{position:relative;z-index:1}
       ir(0); girar();
     }
   }
+
+  /* ---------- 8. antes e depois: a cortina (templates/componentes/antes-depois.html) ----------
+     O controle e um <input type="range"> invisivel por cima do quadro: dedo,
+     mouse e teclado de graca. O JS so copia o valor pra variavel --p e da o
+     empurraozinho da primeira vez, pra quem acha que e foto parada. */
+  $$("[data-ad]").forEach(function(ad){
+    var quadro = $(".ad__quadro", ad), range = $(".ad__range", ad);
+    var selA = $("[data-selo-a]", ad), selD = $("[data-selo-d]", ad);
+    if (!quadro || !range) return;
+    var pinta = function(v){
+      quadro.style.setProperty("--p", v + "%");
+      if (selA) selA.style.opacity = v < 16 ? 0 : 1;
+      if (selD) selD.style.opacity = v > 84 ? 0 : 1;
+    };
+    range.addEventListener("input", function(){ pinta(range.value); });
+    /* o step 0.1 deixa o arrasto liso, mas a seta do teclado andaria 0,1%: anda 5% */
+    range.addEventListener("keydown", function(e){
+      var passo = e.key === "ArrowRight" || e.key === "ArrowUp" ? 5 : e.key === "ArrowLeft" || e.key === "ArrowDown" ? -5 : 0;
+      if (!passo) return;
+      e.preventDefault();
+      range.value = Math.max(0, Math.min(100, parseFloat(range.value) + passo));
+      pinta(range.value);
+    });
+    pinta(range.value);
+    if (reduzido || !temObs) return;
+    var obsAD = new IntersectionObserver(function(itens){
+      itens.forEach(function(e){
+        if (!e.isIntersecting) return;
+        obsAD.disconnect();
+        var ini = null, DUR = 1500;
+        requestAnimationFrame(function passo(t){
+          if (!ini) ini = t;
+          var p = Math.min((t - ini) / DUR, 1);
+          var v = 50 + Math.sin(p * Math.PI * 2) * 16 * (1 - p);   /* vai a 66, volta a 34, assenta em 50 */
+          range.value = v; pinta(v);
+          if (p < 1) requestAnimationFrame(passo); else { range.value = 50; pinta(50); }
+        });
+      });
+    }, { threshold: .45 });
+    obsAD.observe(quadro);
+  });
 })();
 </script>
 
