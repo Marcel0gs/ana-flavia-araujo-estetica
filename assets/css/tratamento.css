@@ -1,0 +1,521 @@
+/* =====================================================================
+   Ana Flavia Araujo Estetica: PAGINAS DE TRATAMENTO (tratamentos/<nome>/)
+   ---------------------------------------------------------------------
+   Pedido dela (16/10/2026): uma pagina por servico, com mais informacao
+   e espaco pra mais fotos. Mesma cara da home (grafite e nude da placa,
+   Cormorant + Jost, arcos concentricos), escrita do zero pra caber em
+   pagina interna: sem abertura, sem topo coberto.
+   Os tokens, botoes, topo, duvidas, rodape e botao flutuante sao copia
+   da home (index.html). Mudou la, muda aqui.
+   ===================================================================== */
+:root{
+  --creme:#F6F3EE;
+  --areia:#EDE6DB;
+  --linho:#E2D9CB;
+  --papel:#FFFDF9;
+  --nude:#D8C8B2;
+  --nude-vivo:#E8DCCB;
+  --nude-forte:#BBA585;
+  --nude-texto:#806A4B;
+  --salvia:#A9B09C;
+  --salvia-texto:#5E6857;
+  --salvia-funda:#535C4C;
+  --salvia-funda-2:#5E6856;
+
+  --grafite:#3A3E3B;
+  --grafite-2:#464A47;
+  --grafite-3:#2C2F2D;
+  --tinta:#2E302E;
+  --tinta-suave:#66655E;
+  --claro:#F3EFE8;
+  --claro-suave:#C4BFB5;
+
+  --serif:"Cormorant Garamond",Georgia,"Times New Roman",serif;
+  --sans:"Jost",system-ui,-apple-system,"Segoe UI",Arial,sans-serif;
+  --marca:"Montserrat","Jost",system-ui,sans-serif;
+
+  --raio:18px;
+  --raio-g:28px;
+  --suave:cubic-bezier(.22,1,.36,1);
+  --topo-h:76px;
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{
+  margin:0;background:var(--creme);color:var(--tinta);
+  font-family:var(--sans);font-size:17px;line-height:1.65;
+  overflow-x:clip;
+}
+img{max-width:100%;display:block;height:auto}
+a{color:inherit}
+p{margin:0 0 1rem}
+h1,h2,h3,h4{margin:0;font-family:var(--serif);font-weight:500;line-height:1.06;letter-spacing:-.005em}
+h1{font-size:clamp(2.7rem,6.2vw,4.5rem)}
+h2{font-size:clamp(2.1rem,4.4vw,3.2rem)}
+h3{font-size:1.5rem;font-weight:600}
+h1 em,h2 em{font-style:italic;color:var(--nude-texto)}
+[id]{scroll-margin-top:96px}
+
+.env{width:min(1180px,100% - 2.5rem);margin-inline:auto}
+.secao{position:relative;padding:clamp(4rem,8.5vw,7rem) 0;overflow-x:clip}
+.secao--creme{background:var(--creme)}
+.secao--areia{background:var(--areia)}
+.secao--grafite{background:var(--grafite);color:var(--claro)}
+.secao--grafite h2,.secao--grafite h3{color:var(--claro)}
+.secao--grafite h2 em,.secao--salvia h2 em{color:var(--nude)}
+.secao--salvia{background:radial-gradient(70% 60% at 50% 0%,var(--salvia-funda-2),var(--salvia-funda) 70%);color:#E9ECE4}
+.secao--salvia h2{color:var(--claro)}
+
+.olho{
+  display:inline-flex;align-items:center;gap:.75rem;margin-bottom:1.1rem;
+  font-size:.74rem;font-weight:500;letter-spacing:.26em;text-transform:uppercase;
+  color:var(--salvia-texto);
+}
+.olho::before{content:"";width:30px;height:1px;background:currentColor;opacity:.8}
+.secao--grafite .olho,.secao--salvia .olho{color:var(--nude)}
+.chamada{max-width:56ch;color:var(--tinta-suave);font-size:1.08rem;margin-top:1.1rem}
+.secao--grafite .chamada{color:var(--claro-suave)}
+.cabeca{margin-bottom:clamp(2rem,4.2vw,3.2rem)}
+.cabeca--centro{text-align:center}
+.cabeca--centro .olho::after{content:"";width:30px;height:1px;background:currentColor;opacity:.8}
+.cabeca--centro .chamada{margin-inline:auto}
+
+/* ====================== botoes (o da home: brilho que atravessa uma vez) ====================== */
+.btn{
+  position:relative;isolation:isolate;overflow:hidden;
+  display:inline-flex;align-items:center;justify-content:center;gap:.6rem;
+  padding:.95rem 1.7rem;border-radius:999px;
+  background:var(--grafite-2);color:var(--creme);border:1px solid var(--grafite-2);
+  font:500 .98rem/1.1 var(--sans);letter-spacing:.02em;text-decoration:none;
+  box-shadow:0 10px 28px rgba(46,48,46,.22);
+  transition:transform .2s ease,box-shadow .3s ease,background .2s ease,border-color .3s ease;
+}
+.btn:hover,.btn:focus-visible{background:var(--grafite-3);border-color:var(--grafite-3);transform:translateY(-2px);box-shadow:0 16px 36px rgba(46,48,46,.3)}
+.btn::before{
+  content:"";position:absolute;top:0;left:-60%;width:40%;height:100%;z-index:1;
+  background:linear-gradient(115deg,transparent,rgba(255,255,255,.4),transparent);
+  transform:skewX(-20deg);transition:left .65s ease;pointer-events:none;
+}
+.btn:hover::before,.btn:focus-visible::before{left:130%}
+.btn--nude{background:var(--nude);color:var(--grafite-3);border-color:var(--nude);box-shadow:0 10px 28px rgba(0,0,0,.25)}
+.btn--nude:hover,.btn--nude:focus-visible{background:var(--nude-vivo);border-color:var(--nude-vivo);box-shadow:0 16px 36px rgba(0,0,0,.32)}
+.btn--linha{background:transparent;color:var(--tinta);border-color:var(--nude-forte);box-shadow:none}
+.btn--linha:hover,.btn--linha:focus-visible{background:var(--papel);border-color:var(--grafite-2);box-shadow:0 10px 24px rgba(40,30,15,.08)}
+.btn__ico{width:18px;height:18px;flex:none;fill:currentColor}
+.btn .i{width:18px;height:18px}
+.acoes{display:flex;flex-wrap:wrap;gap:.8rem;margin-top:2rem}
+:focus-visible{outline:2px solid var(--nude-forte);outline-offset:3px}
+
+.i{width:24px;height:24px;flex:none;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+
+.pular{position:absolute;left:-999px;top:.6rem;z-index:300;background:var(--grafite-2);color:var(--creme);padding:.6rem 1rem;border-radius:8px}
+.pular:focus{left:.6rem}
+
+/* ====================== topo (sempre solido: aqui nao tem foto por baixo) ====================== */
+.topo{
+  position:sticky;top:0;z-index:60;
+  background:rgba(246,243,238,.92);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);
+  border-bottom:1px solid rgba(187,165,133,.28);
+  transition:box-shadow .35s ease;
+}
+.topo--rolado{box-shadow:0 10px 30px rgba(46,48,46,.08)}
+.topo__linha{display:flex;align-items:center;gap:1.2rem;min-height:var(--topo-h)}
+.marca{display:flex;align-items:center;gap:.75rem;flex:none;text-decoration:none;color:var(--grafite-2)}
+.marca__mono{width:34px;height:43px;fill:currentColor}
+.marca__texto{display:flex;flex-direction:column;gap:.38rem}
+.marca__nome{font:600 .82rem/1 var(--marca);letter-spacing:.05em;white-space:nowrap}
+.marca__nome span{font-weight:500}
+.marca__sub{font:500 .52rem/1 var(--marca);letter-spacing:.62em;color:#5A615F}
+.menu{display:none;margin-left:auto;gap:1.5rem}
+.menu a{
+  display:flex;align-items:center;min-height:48px;text-decoration:none;
+  font-size:.9rem;letter-spacing:.04em;color:var(--tinta);opacity:.86;transition:opacity .2s,color .2s;
+}
+.menu a:hover{opacity:1;color:var(--nude-texto)}
+.menu a.ativo{opacity:1;color:var(--nude-texto);box-shadow:inset 0 -1px 0 var(--nude-forte)}
+.topo__cta{margin-left:auto;padding:.68rem 1.25rem;font-size:.9rem}
+@media (min-width:1080px){.menu{display:flex}.topo__cta{margin-left:1.2rem}}
+@media (max-width:430px){
+  .marca{gap:.55rem}
+  .marca__mono{width:28px;height:35px}
+  .marca__nome{font-size:.7rem}
+  .marca__sub{font-size:.46rem;letter-spacing:.55em}
+  .topo__cta{padding:.58rem .95rem;font-size:.84rem;gap:.45rem}
+}
+@media (max-width:359px){.marca__texto{display:none}}
+
+/* =====================================================================
+   TOPO DA PAGINA: texto a esquerda, a foto do tratamento num arco a
+   direita (o mesmo arco do "O estudio" da home), com os arcos da placa
+   atras e o selo das avaliacoes por cima.
+   ===================================================================== */
+.pt{
+  position:relative;overflow:hidden;
+  padding:clamp(1.8rem,4.5vw,3.2rem) 0 clamp(4rem,8vw,6.5rem);
+  background:
+    radial-gradient(55% 70% at 100% 0%,rgba(216,200,178,.38),transparent 70%),
+    radial-gradient(40% 50% at 0% 100%,rgba(198,200,193,.35),transparent 70%),
+    var(--creme);
+}
+.pt__grade{display:grid;gap:clamp(2.6rem,6vw,5rem);align-items:center}
+@media (min-width:900px){.pt__grade{grid-template-columns:1.12fr .88fr}}
+.trilha{display:flex;flex-wrap:wrap;align-items:center;gap:.35rem .6rem;list-style:none;margin:0 0 clamp(1.6rem,4vw,2.6rem);padding:0;font-size:.82rem;letter-spacing:.03em;color:var(--tinta-suave)}
+.trilha li{display:flex;align-items:center;gap:.6rem}
+.trilha li + li::before{content:"";width:5px;height:5px;transform:rotate(45deg);background:var(--nude-forte)}
+.trilha a{text-decoration:none;border-bottom:1px solid transparent;transition:border-color .2s,color .2s}
+.trilha a:hover{color:var(--tinta);border-bottom-color:var(--nude-forte)}
+.trilha [aria-current]{color:var(--tinta)}
+.pt h1 em{display:block}
+.pt__lead{max-width:34rem;margin:1.3rem 0 0;font-size:1.14rem;color:var(--tinta-suave)}
+.pt__wellhub{
+  display:inline-flex;align-items:center;gap:.55rem;margin-top:1.4rem;
+  padding:.45rem 1rem;border-radius:999px;background:#FDE4EA;border:1px solid rgba(242,73,107,.35);
+  font-size:.86rem;color:#8E2343;
+}
+.pt__wellhub b{font-weight:600}
+.pt__wellhub .i{width:17px;height:17px;color:#D8385E}
+
+.pt__foto{position:relative;justify-self:center;width:min(430px,82vw);margin:0}
+.pt__moldura{
+  position:relative;z-index:1;aspect-ratio:3/4;overflow:hidden;
+  border-radius:999px 999px var(--raio-g) var(--raio-g);
+  background:var(--linho);box-shadow:0 34px 70px rgba(46,48,46,.22);
+}
+.pt__moldura img{width:100%;height:100%;object-fit:cover;animation:respira 16s ease-in-out infinite alternate}
+@keyframes respira{from{scale:1.02}to{scale:1.08}}
+.pt__arcos{position:absolute;z-index:0;right:-16%;top:-9%;width:74%;height:auto;overflow:visible;pointer-events:none}
+.pt__arcos path{fill:none;stroke-linecap:butt}
+.pt__selo{
+  position:absolute;z-index:2;left:-7%;bottom:9%;
+  display:flex;align-items:center;gap:.85rem;padding:.9rem 1.15rem;border-radius:16px;
+  background:var(--grafite);color:var(--claro);box-shadow:0 20px 44px rgba(46,48,46,.3);
+}
+.pt__selo strong{font:600 2.2rem/1 var(--serif);color:var(--nude)}
+.pt__selo span{display:block;font-size:.78rem;line-height:1.35;color:var(--claro-suave)}
+.pt__selo .estrelas{color:var(--nude-vivo);letter-spacing:.14em;font-size:.8rem}
+.pt__mono{
+  position:absolute;z-index:2;right:-5%;top:12%;width:76px;aspect-ratio:1;
+  display:grid;place-items:center;border-radius:var(--raio);
+  background:var(--papel);border:5px solid var(--creme);box-shadow:0 18px 38px rgba(46,48,46,.18);color:var(--grafite-2);
+}
+.pt__mono svg{width:42%;height:auto;fill:currentColor}
+@media (max-width:899px){
+  .pt__foto{width:min(360px,78vw)}
+  .pt__selo{left:-4%;padding:.75rem .95rem}
+  .pt__selo strong{font-size:1.8rem}
+  .pt__mono{right:-3%;width:62px}
+}
+@media (max-width:430px){
+  .pt h1{font-size:2.5rem}
+  .pt__lead{font-size:1.04rem}
+  .pt .acoes .btn{flex:1 1 auto}
+}
+
+/* ====================== o que e + quando procurar ====================== */
+.sobre{display:grid;gap:clamp(2.4rem,5vw,4.5rem);align-items:start}
+@media (min-width:900px){.sobre{grid-template-columns:1.05fr .95fr}}
+.sobre__texto p{max-width:60ch;color:var(--tinta-suave);font-size:1.06rem}
+.sobre__texto h2{margin-bottom:1.4rem}
+.cartao{
+  position:relative;overflow:hidden;isolation:isolate;
+  padding:clamp(1.6rem,3.4vw,2.3rem);border-radius:var(--raio-g);
+  background:var(--papel);border:1px solid var(--linho);box-shadow:0 26px 54px rgba(60,50,30,.08);
+}
+.cartao__arcos{position:absolute;z-index:-1;right:-34px;top:-34px;width:150px;height:150px;overflow:visible;pointer-events:none}
+.cartao__arcos path{fill:none;stroke-linecap:butt}
+.cartao h3{font-size:1.6rem;font-weight:500;margin-bottom:1.1rem}
+.lista{list-style:none;margin:0;padding:0;display:grid;gap:.15rem}
+.lista li{display:flex;gap:.9rem;align-items:flex-start;padding:.8rem 0;border-bottom:1px dashed var(--linho);font-size:1rem;line-height:1.5}
+.lista li:last-child{border-bottom:0}
+.lista__ic{
+  width:30px;height:30px;border-radius:50%;flex:none;display:grid;place-items:center;margin-top:-.1rem;
+  color:var(--salvia-texto);background:radial-gradient(circle at 30% 30%,#fff,#EEE8DE);border:1px solid var(--nude);
+}
+.lista__ic .i{width:15px;height:15px;stroke-width:2}
+.cartao__nota{margin:1.2rem 0 0;padding-top:1.1rem;border-top:1px solid var(--linho);font-size:.9rem;color:var(--tinta-suave)}
+.secao--areia .cartao{border-color:#E0D6C6}
+
+/* ====================== como funciona ====================== */
+.passos{list-style:none;margin:0;padding:0;display:grid;gap:1rem;counter-reset:passo}
+@media (min-width:820px){.passos{grid-template-columns:repeat(3,minmax(0,1fr));gap:1.3rem}}
+.passo{
+  position:relative;padding:clamp(1.5rem,3vw,2rem);border-radius:var(--raio);
+  background:var(--papel);border:1px solid var(--linho);
+  transition:transform .4s var(--suave),box-shadow .4s ease,border-color .4s ease;
+}
+.passo:hover{transform:translateY(-4px);border-color:var(--nude-forte);box-shadow:0 20px 44px rgba(60,50,30,.1)}
+.passo__n{display:block;margin-bottom:1rem;font:italic 500 2.6rem/1 var(--serif);color:var(--nude-forte)}
+.passo h3{font-size:1.4rem;margin-bottom:.5rem}
+.passo p{margin:0;font-size:.97rem;color:var(--tinta-suave)}
+/* a linha que liga os passos, so no desktop */
+@media (min-width:820px){
+  .passo:not(:last-child)::after{
+    content:"";position:absolute;top:calc(clamp(1.5rem,3vw,2rem) + 1.3rem);left:calc(100% + 1px);width:1.3rem;height:1px;background:var(--nude-forte);
+  }
+}
+
+/* ====================== wellhub (as regras do story fixado dela) ====================== */
+.secao--wellhub{background:linear-gradient(160deg,#FDF2F4 0%,#FBE5EA 100%)}
+.secao--wellhub .olho{color:#A8274D}
+.secao--wellhub h2 em{color:#D8385E}
+.secao--wellhub .chamada{color:#5E5257}
+.wellhub{display:grid;gap:clamp(2.2rem,5vw,4rem);align-items:center}
+@media (min-width:900px){.wellhub{grid-template-columns:1fr .85fr}}
+.planos{display:flex;flex-wrap:wrap;gap:.5rem;margin:1.6rem 0 0;padding:0;list-style:none}
+.planos li{padding:.4rem .9rem;border-radius:999px;border:1px solid rgba(242,73,107,.55);background:rgba(255,253,249,.6);font-size:.86rem;letter-spacing:.04em;color:#8E2343}
+.ticket{
+  position:relative;padding:clamp(1.6rem,3.5vw,2.2rem);border-radius:var(--raio-g);
+  border:1px solid rgba(242,73,107,.22);box-shadow:0 30px 60px rgba(216,56,94,.14);
+  background:linear-gradient(90deg,#F2496B,#D8385E) top/100% 6px no-repeat,var(--papel);
+}
+.ticket::before,.ticket::after{content:"";position:absolute;top:56%;width:26px;height:26px;border-radius:50%;background:#FCEBEF;border:1px solid rgba(242,73,107,.22)}
+.ticket::before{left:-14px;clip-path:inset(0 0 0 50%)}
+.ticket::after{right:-14px;clip-path:inset(0 50% 0 0)}
+.ticket__cab{display:flex;align-items:center;justify-content:space-between;gap:1rem;margin-bottom:1rem}
+.ticket__cab b{font:600 1.5rem/1.1 var(--serif);color:var(--tinta)}
+.ticket__cab span{font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:#A8274D}
+.ticket__linha{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:1rem 0;border-bottom:1px dashed rgba(242,73,107,.25)}
+.ticket__linha span{font-size:1.05rem}
+.ticket__linha b{flex:none;padding:.3rem .8rem;border-radius:999px;background:#FDE4EA;font-size:.86rem;font-weight:500;color:#8E2343}
+.ticket__pe{margin-top:1.1rem;display:grid;gap:.5rem;font-size:.94rem;color:var(--tinta-suave)}
+.ticket__pe div{display:flex;align-items:center;gap:.6rem}
+.ticket__pe .i{width:18px;height:18px;color:#D8385E}
+.ticket .btn{margin-top:1.4rem;width:100%;background:#D8385E;border-color:#D8385E;color:#fff;box-shadow:0 12px 28px rgba(216,56,94,.32)}
+.ticket .btn:hover,.ticket .btn:focus-visible{background:#C22C51;border-color:#C22C51;box-shadow:0 16px 36px rgba(216,56,94,.4)}
+.ticket__fonte{margin:.9rem 0 0;font-size:.76rem;color:var(--tinta-suave);text-align:center}
+
+/* ====================== o que as clientes dizem (literal, do Google) ====================== */
+.avals{display:grid;gap:1rem;max-width:980px;margin-inline:auto}
+@media (min-width:820px){.avals--2{grid-template-columns:1fr 1fr}}
+.avals--1{max-width:760px}
+.aval{
+  position:relative;display:flex;flex-direction:column;gap:1rem;margin:0;
+  padding:clamp(1.6rem,3vw,2.2rem);border-radius:var(--raio);
+  background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);
+}
+.aval .i{width:34px;height:34px;color:var(--nude);opacity:.85}
+.aval blockquote{margin:0;font:500 clamp(1.2rem,2.2vw,1.45rem)/1.4 var(--serif);color:#F4F3EE}
+.aval__quem{margin-top:auto;display:flex;align-items:center;gap:.85rem}
+.aval__ini{
+  width:44px;height:44px;border-radius:50%;flex:none;display:grid;place-items:center;
+  background:rgba(232,220,203,.16);color:var(--nude-vivo);border:1px solid rgba(232,220,203,.4);
+  font-weight:500;font-size:.88rem;letter-spacing:.04em;
+}
+.aval__quem b{display:block;font-weight:500;color:#fff;font-size:.98rem}
+.aval__quem small{display:block;font-size:.8rem;color:#C6CDBE}
+.aval-mais{display:flex;justify-content:center;margin:1.8rem 0 0}
+.aval-mais a{color:var(--nude-vivo);font-size:.92rem;letter-spacing:.04em}
+
+/* =====================================================================
+   GALERIA: o espaco pras fotos DELA (o pedido de 16/10/2026).
+   Cada foto e um <li>. Pra por foto nova: WebP em assets/img/ (scripts/
+   otimizar-imagem.js, 1200px) e copiar uma linha da lista. Toque abre a
+   foto grande (a "luz", montada pelo tratamento.js); sem JS, o link abre
+   a imagem sozinha. Foto do Unsplash NUNCA entra aqui: a galeria diz
+   "do estudio".
+   ===================================================================== */
+.galeria{
+  --tam:clamp(158px,21vw,262px);
+  display:flex;flex-wrap:wrap;justify-content:center;gap:clamp(.7rem,1.6vw,1.1rem);
+  margin:0;padding:0;list-style:none;
+}
+.galeria > li{width:var(--tam)}
+@media (max-width:520px){.galeria{--tam:calc((100% - .7rem) / 2)}}
+.galeria__item{
+  position:relative;display:block;aspect-ratio:4/5;overflow:hidden;border-radius:20px;
+  background:var(--linho);box-shadow:0 16px 36px rgba(60,50,30,.13);color:#fff;text-decoration:none;
+  transition:transform .5s var(--suave),box-shadow .5s ease;
+}
+.galeria__item img{width:100%;height:100%;object-fit:cover;transition:transform .9s var(--suave)}
+.galeria__item::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(44,47,45,0) 45%,rgba(44,47,45,.74));opacity:0;transition:opacity .4s ease}
+.galeria__lupa{
+  position:absolute;top:.7rem;right:.7rem;z-index:1;width:34px;height:34px;border-radius:50%;display:grid;place-items:center;
+  background:rgba(44,47,45,.5);color:#fff;-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);
+}
+.galeria__lupa .i{width:16px;height:16px}
+.galeria__leg{
+  position:absolute;left:.9rem;right:.9rem;bottom:.85rem;z-index:1;
+  font-size:.8rem;line-height:1.35;letter-spacing:.02em;opacity:0;transform:translateY(8px);
+  transition:opacity .4s ease,transform .4s var(--suave);
+}
+.galeria__item:hover,.galeria__item:focus-visible{transform:translateY(-6px);box-shadow:0 26px 50px rgba(60,50,30,.2)}
+.galeria__item:hover img,.galeria__item:focus-visible img{transform:scale(1.06)}
+.galeria__item:hover::after,.galeria__item:focus-visible::after,
+.galeria__item:hover .galeria__leg,.galeria__item:focus-visible .galeria__leg{opacity:1;transform:none}
+@media (hover:none){.galeria__item::after,.galeria__leg{opacity:1;transform:none}}
+/* o ultimo quadro sempre leva pro Instagram dela */
+.galeria__ig{
+  position:relative;overflow:hidden;isolation:isolate;
+  display:flex;flex-direction:column;justify-content:flex-end;gap:.5rem;aspect-ratio:4/5;padding:1.2rem;
+  border-radius:20px;text-decoration:none;color:var(--claro);
+  background:radial-gradient(circle at 80% 10%,#545a55,var(--grafite) 55%,var(--grafite-3));
+  box-shadow:0 16px 36px rgba(60,50,30,.16);transition:transform .5s var(--suave),box-shadow .5s ease;
+}
+.galeria__ig svg.galeria__mono{position:absolute;z-index:-1;right:-14%;top:-6%;width:70%;height:auto;fill:none;stroke:rgba(216,200,178,.22);stroke-width:1}
+.galeria__ig .i{width:30px;height:30px;color:var(--nude)}
+.galeria__ig b{font:600 1.35rem/1.15 var(--serif);color:#fff}
+.galeria__ig small{font-size:.82rem;line-height:1.4;color:var(--claro-suave)}
+.galeria__ig span{display:inline-flex;align-items:center;gap:.4rem;margin-top:.2rem;font-size:.72rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--nude-vivo)}
+.galeria__ig span .i{width:15px;height:15px;transition:transform .4s var(--suave)}
+.galeria__ig:hover,.galeria__ig:focus-visible{transform:translateY(-6px);box-shadow:0 26px 50px rgba(46,48,46,.28)}
+.galeria__ig:hover span .i{transform:translate(3px,-3px)}
+.galeria-nota{margin:clamp(1.4rem,3vw,2rem) auto 0;text-align:center;font-size:.86rem;color:var(--tinta-suave);max-width:60ch}
+
+/* a foto grande (dialog nativo: Esc e foco de graca) */
+.luz{
+  position:fixed;inset:0;width:100%;height:100%;max-width:none;max-height:none;margin:0;padding:0;border:0;
+  background:rgba(28,30,29,.95);color:var(--claro);overflow:hidden;
+}
+.luz::backdrop{background:rgba(28,30,29,.5)}
+.luz[open]{display:grid;place-items:center}
+.luz__fig{margin:0;display:grid;justify-items:center;gap:.9rem;padding:4.6rem 4.2rem 3.4rem}
+.luz__fig img{
+  width:auto;height:auto;max-width:min(100%,920px);max-height:calc(100vh - 10rem);max-height:calc(100svh - 10rem);
+  border-radius:14px;box-shadow:0 30px 80px rgba(0,0,0,.5);
+}
+.luz.troca .luz__fig img{animation:luz-entra .45s var(--suave)}
+@keyframes luz-entra{from{opacity:0;transform:scale(.97)}}
+.luz__fig figcaption{max-width:60ch;text-align:center;font-size:.92rem;color:var(--claro-suave)}
+.luz__btn{
+  position:fixed;z-index:2;width:50px;height:50px;border-radius:50%;display:grid;place-items:center;cursor:pointer;
+  color:#fff;background:rgba(255,255,255,.08);border:1px solid rgba(232,220,203,.4);transition:background .2s,border-color .2s;
+}
+.luz__btn:hover{background:rgba(255,255,255,.16);border-color:var(--nude-vivo)}
+.luz__btn .i{width:22px;height:22px}
+.luz__fechar{top:1rem;right:1rem}
+.luz__ant{left:1rem;top:50%;translate:0 -50%}
+.luz__prox{right:1rem;top:50%;translate:0 -50%}
+.luz__conta{position:fixed;top:1.6rem;left:1.3rem;font-size:.78rem;letter-spacing:.2em;color:var(--claro-suave)}
+.luz--uma .luz__ant,.luz--uma .luz__prox,.luz--uma .luz__conta{display:none}
+@media (max-width:600px){
+  .luz__fig{padding:4.4rem .9rem 5.4rem}
+  .luz__ant,.luz__prox{top:auto;bottom:1rem;translate:none}
+  .luz__ant{left:calc(50% - 60px)}
+  .luz__prox{right:calc(50% - 60px)}
+}
+
+/* ====================== duvidas ====================== */
+.faq{max-width:820px;margin:0 auto;display:grid;gap:.75rem}
+.faq details{border:1px solid var(--linho);border-radius:var(--raio);background:var(--papel);transition:border-color .3s,box-shadow .3s}
+.faq details[open]{border-color:var(--nude-forte);box-shadow:0 14px 34px rgba(60,50,30,.08)}
+.faq summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:1rem;padding:1.15rem 1.35rem;font:600 1.25rem/1.25 var(--serif);color:var(--tinta)}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary .i{width:22px;height:22px;color:var(--salvia-texto);transition:transform .35s var(--suave)}
+.faq details[open] summary .i{transform:rotate(45deg)}
+.faq details p{margin:0;padding:0 1.35rem 1.25rem;color:var(--tinta-suave)}
+
+/* ====================== outros tratamentos ====================== */
+.outros{list-style:none;margin:0;padding:0;display:grid;gap:clamp(.8rem,1.4vw,1.1rem)}
+@media (min-width:1000px){.outros{grid-template-columns:repeat(6,minmax(0,1fr))}}
+@media (max-width:999px){
+  .outros{
+    grid-auto-flow:column;grid-auto-columns:clamp(150px,40vw,210px);
+    overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x mandatory;scrollbar-width:none;
+    margin-inline:-1.25rem;padding:0 1.25rem .8rem;scroll-padding-inline:1.25rem;
+  }
+  .outros::-webkit-scrollbar{display:none}
+  .outros > li{scroll-snap-align:start}
+}
+.outro{
+  position:relative;isolation:isolate;display:flex;flex-direction:column;justify-content:flex-end;
+  aspect-ratio:3/4;overflow:hidden;border-radius:18px;padding:1rem;
+  background:#4A4E4B;color:#fff;text-decoration:none;box-shadow:0 18px 40px rgba(0,0,0,.3);
+  transition:transform .5s var(--suave),box-shadow .5s ease;
+}
+.outro img{position:absolute;inset:0;z-index:-2;width:100%;height:100%;object-fit:cover;transition:scale 1s var(--suave)}
+.outro::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(28,30,29,0) 35%,rgba(28,30,29,.88))}
+.outro small{font-size:.6rem;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--nude-vivo)}
+.outro b{margin-top:.3rem;font:500 1.3rem/1.1 var(--serif)}
+.outro:hover,.outro:focus-visible{transform:translateY(-6px);box-shadow:0 28px 56px rgba(0,0,0,.42)}
+.outro:hover img{scale:1.07}
+.outro:focus-visible{outline:2px solid var(--nude-vivo);outline-offset:4px}
+.outros-volta{margin:clamp(1.6rem,3vw,2.2rem) 0 0;font-size:.95rem;color:var(--claro-suave)}
+.outros-volta a{color:var(--nude-vivo)}
+
+/* ====================== faixa final (o "um tempo so seu" da home) ====================== */
+.exp{
+  position:relative;isolation:isolate;overflow:hidden;
+  display:grid;place-items:center;text-align:center;
+  padding:clamp(6rem,13vw,9rem) 1.25rem;
+  background:radial-gradient(ellipse at 50% 42%,#4B504C 0%,var(--grafite) 55%,var(--grafite-3) 100%);
+  color:var(--claro);
+}
+.exp__mono{
+  position:absolute;left:50%;top:50%;z-index:-1;width:min(64vw,440px);height:auto;aspect-ratio:168/212;
+  transform:translate(-50%,-50%);fill:none;stroke:rgba(216,200,178,.18);stroke-width:.7;
+}
+.exp__texto{position:relative;z-index:2;max-width:44rem}
+.exp h2{font-size:clamp(2.7rem,7.4vw,5.4rem);line-height:1;color:var(--claro);text-shadow:0 6px 40px rgba(0,0,0,.45)}
+.exp h2 em{color:var(--nude)}
+.exp p{margin:1.3rem auto 0;max-width:30rem;font-size:1.12rem;color:#D3CEC5}
+.exp .acoes{justify-content:center}
+.poeira{position:absolute;inset:0;z-index:-1;pointer-events:none}
+.poeira i{
+  position:absolute;left:var(--x);top:var(--y);width:var(--t,4px);height:var(--t,4px);border-radius:50%;
+  background:var(--nude-vivo);opacity:0;animation:flutua var(--d,7s) var(--a,0s) ease-in-out infinite;
+}
+@keyframes flutua{0%{opacity:0;transform:translateY(20px)}30%{opacity:.75}70%{opacity:.45}100%{opacity:0;transform:translateY(-60px)}}
+
+/* ====================== rodape ====================== */
+.rodape{background:var(--grafite-3);color:var(--claro-suave);padding:clamp(3.4rem,7vw,5rem) 0 6.5rem;border-top:1px solid rgba(216,200,178,.18)}
+.rodape__grade{display:grid;gap:2.4rem}
+@media (min-width:600px){.rodape__grade{grid-template-columns:1fr 1fr}}
+@media (min-width:1000px){.rodape__grade{grid-template-columns:1.3fr 1.1fr .8fr 1.1fr}}
+.rodape .marca{color:var(--nude-vivo)}
+.rodape .marca__mono{width:42px;height:53px}
+.rodape .marca__nome{font-size:.95rem}
+.rodape .marca__sub{color:var(--claro-suave)}
+.rodape p{margin:1.1rem 0 0;max-width:34ch;font-size:.95rem}
+.rodape h4{font:500 .78rem/1 var(--sans);letter-spacing:.24em;text-transform:uppercase;color:var(--nude);margin:0 0 1.1rem}
+.rodape__lista{list-style:none;margin:0;padding:0;display:grid;gap:.15rem}
+.rodape__lista a{display:flex;align-items:center;gap:.7rem;min-height:44px;text-decoration:none;font-size:.95rem;transition:color .2s}
+.rodape__lista a:hover,.rodape__lista a[aria-current]{color:var(--nude-vivo)}
+.rodape__lista .i{width:18px;height:18px;color:var(--nude)}
+.rodape__fim{margin-top:2.6rem;padding-top:1.6rem;border-top:1px solid rgba(216,200,178,.15);font-size:.84rem;color:#9C9990}
+.rodape p.rodape__fim,.rodape p.assinatura{max-width:none}
+.assinatura{margin:.6rem 0 0;text-align:center;font-size:.7rem;letter-spacing:.04em;opacity:.75}
+.assinatura a{color:inherit;font-weight:600;text-decoration:none;border-bottom:1px solid currentColor;padding-bottom:1px;transition:opacity .2s ease}
+.assinatura a:hover{opacity:.7}
+
+/* ====================== botao flutuante ====================== */
+.zap{
+  position:fixed;right:16px;bottom:16px;z-index:70;
+  display:flex;align-items:center;gap:.55rem;padding:.8rem 1.25rem;border-radius:999px;
+  background:#25D366;color:#0B3D22;font-weight:600;font-size:.95rem;text-decoration:none;
+  box-shadow:0 10px 26px rgba(0,0,0,.25);transition:transform .4s var(--suave),opacity .4s ease;
+}
+.zap svg{width:20px;height:20px;fill:currentColor}
+.js .zap{opacity:0;transform:translateY(20px);pointer-events:none}
+.js .zap.zap--on{opacity:1;transform:none;pointer-events:auto}
+@media (max-width:430px){.zap span{display:none}.zap{padding:.9rem}}
+
+/* ====================== entrada ao rolar ======================
+   So esconde quando o script ligou o observador (classe rev-on): se o JS
+   falhar, nada fica invisivel. */
+.rev-on [data-rev]{opacity:0;translate:0 22px;transition:opacity .8s ease,translate .9s var(--suave)}
+.rev-on [data-rev].visto{opacity:1;translate:0 0}
+.rev-on [data-rev]:nth-child(2){transition-delay:.08s}
+.rev-on [data-rev]:nth-child(3){transition-delay:.16s}
+.rev-on [data-rev]:nth-child(4){transition-delay:.24s}
+.entra-pt .pt__texto > *{animation:sobe .9s var(--suave) both}
+.entra-pt .pt__texto > :nth-child(2){animation-delay:.06s}
+.entra-pt .pt__texto > :nth-child(3){animation-delay:.12s}
+.entra-pt .pt__texto > :nth-child(4){animation-delay:.18s}
+.entra-pt .pt__texto > :nth-child(5){animation-delay:.24s}
+.entra-pt .pt__texto > :nth-child(6){animation-delay:.3s}
+.entra-pt .pt__arcos path{stroke-dasharray:1;stroke-dashoffset:1;animation:traca 1.5s .2s cubic-bezier(.65,0,.35,1) forwards}
+.entra-pt .pt__arcos path:nth-child(2){animation-delay:.35s}
+.entra-pt .pt__arcos path:nth-child(3){animation-delay:.5s}
+@keyframes sobe{from{opacity:0;transform:translateY(22px)}}
+@keyframes traca{to{stroke-dashoffset:0}}
+
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .pt__moldura img{animation:none;scale:1.02}
+  .poeira{display:none}
+  .entra-pt .pt__texto > *,.entra-pt .pt__arcos path{animation:none;stroke-dashoffset:0}
+  .rev-on [data-rev]{opacity:1;translate:none;transition:none}
+  .galeria__item:hover,.outro:hover,.passo:hover{transform:none}
+  .luz.troca .luz__fig img{animation:none}
+}

@@ -888,7 +888,8 @@ main > section:not(.hero),.rodape{position:relative;z-index:1}
 /* ====================== rodape ====================== */
 .rodape{background:var(--grafite-3);color:var(--claro-suave);padding:clamp(3.4rem,7vw,5rem) 0 6.5rem;border-top:1px solid rgba(216,200,178,.18)}
 .rodape__grade{display:grid;gap:2.4rem}
-@media (min-width:860px){.rodape__grade{grid-template-columns:1.4fr 1fr 1fr}}
+@media (min-width:600px){.rodape__grade{grid-template-columns:1fr 1fr}}
+@media (min-width:1000px){.rodape__grade{grid-template-columns:1.3fr 1.1fr .8fr 1.1fr}}
 .rodape .marca{color:var(--nude-vivo)}
 .rodape .marca__mono{width:42px;height:53px}
 .rodape .marca__nome{font-size:.95rem}
@@ -900,6 +901,10 @@ main > section:not(.hero),.rodape{position:relative;z-index:1}
 .rodape__lista a:hover{color:var(--nude-vivo)}
 .rodape__lista .i{width:18px;height:18px;color:var(--nude)}
 .rodape__fim{margin-top:2.6rem;padding-top:1.6rem;border-top:1px solid rgba(216,200,178,.15);font-size:.84rem;color:#9C9990}
+.rodape p.rodape__fim,.rodape p.assinatura{max-width:none}
+.assinatura{margin:.6rem 0 0;text-align:center;font-size:.7rem;letter-spacing:.04em;opacity:.75}
+.assinatura a{color:inherit;font-weight:600;text-decoration:none;border-bottom:1px solid currentColor;padding-bottom:1px;transition:opacity .2s ease}
+.assinatura a:hover{opacity:.7}
 
 /* ====================== botao flutuante ====================== */
 .zap{
@@ -1174,21 +1179,24 @@ main > section:not(.hero),.rodape{position:relative;z-index:1}
 
 <!-- ===== tratamentos: a vitrine da WA, com abas que filtram =====
      Serviços da bio do Instagram (Endolift, harmonização corporal, flacidez,
-     celulite, estrias), do painel da fachada (cílios, esmalteria, estética
-     facial, micropigmentação, drenagem e massagem redutora, gordura
-     localizada) e do story do Wellhub. Sem preço e sem promessa de resultado.
-     ⚠ FOTOS DO UNSPLASH, não do estúdio: trocar pelas do Instagram dela. -->
+     celulite, estrias), do painel da fachada (esmalteria, estética facial,
+     drenagem e massagem redutora, gordura localizada) e do story do Wellhub.
+     Micropigmentação e cílios saíram a pedido dela (16/10/2026).
+     Cada cartão abre a página do tratamento (tratamentos/<nome>/), com a
+     galeria de fotos dela. Sem preço e sem promessa de resultado.
+     ⚠ FOTOS DO UNSPLASH, não do estúdio: trocar pelas do Instagram dela.
+     A do Endolift (16/10/2026) foi a que o Marcelo mandou: origem a confirmar. -->
 <section class="secao secao--grafite tratamentos" id="tratamentos">
   <div class="env">
     <div class="trat-cab">
       <div class="cabeca">
         <span class="olho">Tratamentos</span>
         <h2>Corpo, rosto e beleza, <em>no mesmo lugar.</em></h2>
-        <p class="chamada">Tudo começa por uma conversa pelo WhatsApp. Toque no tratamento para falar direto com a Ana sobre ele.</p>
+        <p class="chamada">Tudo começa por uma conversa com a Ana. Toque no tratamento para ver como ele funciona, as fotos e as dúvidas mais comuns.</p>
       </div>
       <div class="abas" role="tablist" aria-label="Famílias de tratamento">
         <button class="aba" type="button" role="tab" id="aba-corpo" aria-controls="t-corpo" aria-selected="true" data-aba>Corpo<b>5</b></button>
-        <button class="aba" type="button" role="tab" id="aba-rosto" aria-controls="t-rosto" aria-selected="false" tabindex="-1" data-aba>Rosto e beleza<b>4</b></button>
+        <button class="aba" type="button" role="tab" id="aba-rosto" aria-controls="t-rosto" aria-selected="false" tabindex="-1" data-aba>Rosto e beleza<b>2</b></button>
         <span class="abas__marca" aria-hidden="true"></span>
       </div>
     </div>
@@ -1202,8 +1210,8 @@ main > section:not(.hero),.rodape{position:relative;z-index:1}
     <div class="vitrine" data-vitrine>
       <ul class="vitrine__trilho" data-v-trilho aria-label="Tratamentos para o corpo">
         <li class="tcard">
-          <a class="tcard__a" href="https://wa.me/5531986388648?text=Ol%C3%A1!%20Vim%20pelo%20site%20e%20quero%20saber%20mais%20sobre%20o%20Endolift." target="_blank" rel="noopener">
-            <span class="tcard__midia"><img src="assets/img/trat-endolift.webp" width="600" height="800" loading="lazy" decoding="async" alt="Aparelho de laser sendo usado na perna de uma cliente, sobre toalha branca"></span>
+          <a class="tcard__a" href="tratamentos/endolift/">
+            <span class="tcard__midia"><img src="assets/img/trat-endolift.webp" width="600" height="800" loading="lazy" decoding="async" alt="Procedimento de Endolift no rosto: a fibra do laser na linha da mandíbula e a cliente com protetor nos olhos"></span>
             <span class="tcard__brilho" aria-hidden="true"></span>
             <span class="tcard__n" aria-hidden="true">01</span>
             <div class="tcard__corpo">
@@ -1211,13 +1219,13 @@ main > section:not(.hero),.rodape{position:relative;z-index:1}
               <h3>Endolift</h3>
               <div class="tcard__mais"><div>
                 <p class="tcard__txt">Tecnologia a laser para flacidez e contorno, dentro de um protocolo pensado para você.</p>
-                <span class="tcard__cta">Falar sobre o Endolift<svg class="i" aria-hidden="true"><use href="#i-seta"/></svg></span>
+                <span class="tcard__cta">Ver o tratamento<svg class="i" aria-hidden="true"><use href="#i-seta"/></svg></span>
               </div></div>
             </div>
           </a>
         </li>
         <li class="tcard">
-          <a class="tcard__a" href="https://wa.me/5531986388648?text=Ol%C3%A1!%20Vim%20pelo%20site%20e%20quero%20saber%20mais%20sobre%20harmoniza%C3%A7%C3%A3o%20corporal." target="_blank" rel="noopener">
+          <a class="tcard__a" href="tratamentos/harmonizacao-corporal/">
             <span class="tcard__midia"><img src="assets/img/trat-corporal.webp" width="600" height="800" loading="lazy" decoding="async" alt="Mãos de terapeuta fazendo massagem modeladora nas costas de uma cliente"></span>
             <span class="tcard__brilho" aria-hidden="true"></span>
             <span class="tcard__n" aria-hidden="true">02</span>
@@ -1226,13 +1234,13 @@ main > section:not(.hero),.rodape{position:relative;z-index:1}
               <h3>Harmonização corporal</h3>
               <div class="tcard__mais"><div>
                 <p class="tcard__txt">Protocolos para gordura localizada e contorno do corpo, combinando técnicas conforme o seu objetivo.</p>
-                <span class="tcard__cta">Agendar uma conversa<svg class="i" aria-hidden="true"><use href="#i-seta"/></svg></span>
+                <span class="tcard__cta">Ver o tratamento<svg class="i" aria-hidden="true"><use href="#i-seta"/></svg></span>
               </div></div>
             </div>
           </a>
         </li>
         <li class="tcard">
-          <a class="tcard__a" href="https://wa.me/5531986388648?text=Ol%C3%A1!%20Vim%20pelo%20site%20e%20quero%20saber%20mais%20sobre%20tratamento%20para%20flacidez%2C%20celulite%20e%20estrias." target="_blank" rel="noopener">
+          <a class="tcard__a" href="tratamentos/flacidez-celulite-estrias/">
             <span class="tcard__midia"><img src="assets/img/trat-flacidez.webp" width="600" height="800" loading="lazy" decoding="async" alt="Pernas de uma mulher contra um fundo claro"></span>
             <span class="tcard__brilho" aria-hidden="true"></span>
             <span class="tcard__n" aria-hidden="true">03</span>
@@ -1241,13 +1249,13 @@ main > section:not(.hero),.rodape{position:relative;z-index:1}
               <h3>Flacidez, celulite e estrias</h3>
               <div class="tcard__mais"><div>
                 <p class="tcard__txt">Cuidados com a firmeza e a textura da pele, em protocolos para cada região do corpo.</p>
-                <span class="tcard__cta">Agendar uma conversa<svg class="i" aria-hidden="true"><use href="#i-seta"/></svg></span>
+                <span class="tcard__cta">Ver o tratamento<svg class="i" aria-hidden="true"><use href="#i-seta"/></svg></span>
               </div></div>
             </div>
           </a>
         </li>
         <li class="tcard">
-          <a class="tcard__a" href="https://wa.me/5531986388648?text=Ol%C3%A1!%20Vim%20pelo%20site%20e%20quero%20agendar%20uma%20drenagem%20linf%C3%A1tica." target="_blank" rel="noopener">
+          <a class="tcard__a" href="tratamentos/drenagem-linfatica/">
             <span class="tcard__midia"><img src="assets/img/trat-drenagem.webp" width="600" height="800" loading="lazy" decoding="async" alt="Mãos fazendo drenagem linfática na perna de uma cliente coberta por toalha branca"></span>
             <span class="tcard__brilho" aria-hidden="true"></span>
             <span class="tcard__n" aria-hidden="true">04</span>
@@ -1257,13 +1265,13 @@ main > section:not(.hero),.rodape{position:relative;z-index:1}
               <h3>Drenagem linfática</h3>
               <div class="tcard__mais"><div>
                 <p class="tcard__txt">Massagem que estimula a circulação e ajuda a aliviar a retenção de líquidos. Também pelo Wellhub.</p>
-                <span class="tcard__cta">Agendar drenagem<svg class="i" aria-hidden="true"><use href="#i-seta"/></svg></span>
+                <span class="tcard__cta">Ver o tratamento<svg class="i" aria-hidden="true"><use href="#i-seta"/></svg></span>
               </div></div>
             </div>
           </a>
         </li>
         <li class="tcard">
-          <a class="tcard__a" href="https://wa.me/5531986388648?text=Ol%C3%A1!%20Vim%20pelo%20site%20e%20quero%20agendar%20uma%20massagem%20redutora." target="_blank" rel="noopener">
+          <a class="tcard__a" href="tratamentos/massagem-redutora/">
             <span class="tcard__midia"><img src="assets/img/trat-massagem.webp" width="600" height="800" loading="lazy" decoding="async" alt="Mãos fazendo massagem nas costas de uma cliente, com luz suave"></span>
             <span class="tcard__brilho" aria-hidden="true"></span>
             <span class="tcard__n" aria-hidden="true">05</span>
@@ -1273,7 +1281,7 @@ main > section:not(.hero),.rodape{position:relative;z-index:1}
               <h3>Massagem redutora</h3>
               <div class="tcard__mais"><div>
                 <p class="tcard__txt">Massagem firme e modeladora, parte dos protocolos de contorno do corpo. Também pelo Wellhub.</p>
-                <span class="tcard__cta">Agendar massagem<svg class="i" aria-hidden="true"><use href="#i-seta"/></svg></span>
+                <span class="tcard__cta">Ver o tratamento<svg class="i" aria-hidden="true"><use href="#i-seta"/></svg></span>
               </div></div>
             </div>
           </a>
@@ -1291,12 +1299,12 @@ main > section:not(.hero),.rodape{position:relative;z-index:1}
   <div class="familia" id="t-rosto" role="tabpanel" aria-labelledby="aba-rosto">
     <div class="env familia__cab">
       <div class="familia__titulo"><h3>Rosto e beleza</h3></div>
-      <p class="familia__txt">Pele do rosto, sobrancelhas, cílios e unhas, com hora marcada.</p>
+      <p class="familia__txt">Pele do rosto e unhas, com hora marcada.</p>
     </div>
     <div class="vitrine" data-vitrine>
       <ul class="vitrine__trilho" data-v-trilho aria-label="Tratamentos para o rosto e beleza">
         <li class="tcard">
-          <a class="tcard__a" href="https://wa.me/5531986388648?text=Ol%C3%A1!%20Vim%20pelo%20site%20e%20quero%20saber%20mais%20sobre%20est%C3%A9tica%20facial." target="_blank" rel="noopener">
+          <a class="tcard__a" href="tratamentos/estetica-facial/">
             <span class="tcard__midia"><img src="assets/img/trat-facial.webp" width="600" height="800" loading="lazy" decoding="async" alt="Máscara facial sendo aplicada com pincel no rosto de uma cliente"></span>
             <span class="tcard__brilho" aria-hidden="true"></span>
             <span class="tcard__n" aria-hidden="true">01</span>
@@ -1305,52 +1313,22 @@ main > section:not(.hero),.rodape{position:relative;z-index:1}
               <h3>Estética facial</h3>
               <div class="tcard__mais"><div>
                 <p class="tcard__txt">Limpeza e cuidados com a pele do rosto, conforme o que a sua pele pede.</p>
-                <span class="tcard__cta">Agendar<svg class="i" aria-hidden="true"><use href="#i-seta"/></svg></span>
+                <span class="tcard__cta">Ver o tratamento<svg class="i" aria-hidden="true"><use href="#i-seta"/></svg></span>
               </div></div>
             </div>
           </a>
         </li>
         <li class="tcard">
-          <a class="tcard__a" href="https://wa.me/5531986388648?text=Ol%C3%A1!%20Vim%20pelo%20site%20e%20quero%20saber%20mais%20sobre%20micropigmenta%C3%A7%C3%A3o." target="_blank" rel="noopener">
-            <span class="tcard__midia"><img src="assets/img/trat-micro.webp" width="600" height="800" loading="lazy" decoding="async" alt="Marcação do desenho da sobrancelha antes da micropigmentação"></span>
-            <span class="tcard__brilho" aria-hidden="true"></span>
-            <span class="tcard__n" aria-hidden="true">02</span>
-            <div class="tcard__corpo">
-              <span class="tcard__cat">Rosto</span>
-              <h3>Micropigmentação</h3>
-              <div class="tcard__mais"><div>
-                <p class="tcard__txt">Sobrancelhas desenhadas e preenchidas com pigmento, em harmonia com o seu rosto.</p>
-                <span class="tcard__cta">Agendar<svg class="i" aria-hidden="true"><use href="#i-seta"/></svg></span>
-              </div></div>
-            </div>
-          </a>
-        </li>
-        <li class="tcard">
-          <a class="tcard__a" href="https://wa.me/5531986388648?text=Ol%C3%A1!%20Vim%20pelo%20site%20e%20quero%20saber%20mais%20sobre%20c%C3%ADlios." target="_blank" rel="noopener">
-            <span class="tcard__midia"><img src="assets/img/trat-cilios.webp" width="600" height="800" loading="lazy" decoding="async" alt="Aplicação de cílios fio a fio com pinça"></span>
-            <span class="tcard__brilho" aria-hidden="true"></span>
-            <span class="tcard__n" aria-hidden="true">03</span>
-            <div class="tcard__corpo">
-              <span class="tcard__cat">Olhar</span>
-              <h3>Cílios</h3>
-              <div class="tcard__mais"><div>
-                <p class="tcard__txt">Procedimentos para valorizar o olhar no dia a dia.</p>
-                <span class="tcard__cta">Agendar<svg class="i" aria-hidden="true"><use href="#i-seta"/></svg></span>
-              </div></div>
-            </div>
-          </a>
-        </li>
-        <li class="tcard">
-          <a class="tcard__a" href="https://wa.me/5531986388648?text=Ol%C3%A1!%20Vim%20pelo%20site%20e%20quero%20agendar%20na%20esmalteria." target="_blank" rel="noopener">
+          <a class="tcard__a" href="tratamentos/esmalteria/">
             <span class="tcard__midia"><img src="assets/img/trat-unhas.webp" width="600" height="800" loading="lazy" decoding="async" alt="Esmalte claro sendo aplicado nas unhas de uma cliente"></span>
             <span class="tcard__brilho" aria-hidden="true"></span>
-            <span class="tcard__n" aria-hidden="true">04</span>
+            <span class="tcard__n" aria-hidden="true">02</span>
             <div class="tcard__corpo">
               <span class="tcard__cat">Unhas</span>
               <h3>Esmalteria</h3>
               <div class="tcard__mais"><div>
                 <p class="tcard__txt">Manicure e pedicure com hora marcada.</p>
-                <span class="tcard__cta">Agendar<svg class="i" aria-hidden="true"><use href="#i-seta"/></svg></span>
+                <span class="tcard__cta">Ver o tratamento<svg class="i" aria-hidden="true"><use href="#i-seta"/></svg></span>
               </div></div>
             </div>
           </a>
@@ -1359,7 +1337,7 @@ main > section:not(.hero),.rodape{position:relative;z-index:1}
       <button class="vitrine__seta vitrine__seta--ant" type="button" data-v-ant aria-label="Ver os anteriores em rosto e beleza"><svg class="i" aria-hidden="true"><use href="#i-esq"/></svg></button>
       <button class="vitrine__seta vitrine__seta--prox" type="button" data-v-prox aria-label="Ver os próximos em rosto e beleza"><svg class="i" aria-hidden="true"><use href="#i-dir"/></svg></button>
       <div class="env vitrine__rodape" aria-hidden="true">
-        <span class="vitrine__conta"><b data-v-atual>01</b> / 04</span>
+        <span class="vitrine__conta"><b data-v-atual>01</b> / 02</span>
         <span class="vitrine__barra"><i data-v-barra></i></span>
       </div>
     </div>
@@ -1693,9 +1671,20 @@ main > section:not(.hero),.rodape{position:relative;z-index:1}
         <p>Estética corporal e facial com protocolos personalizados, na Esplanada da Estação, em Itabira/MG.</p>
       </div>
       <div>
+        <h4>Tratamentos</h4>
+        <ul class="rodape__lista">
+          <li><a href="tratamentos/endolift/">Endolift</a></li>
+          <li><a href="tratamentos/harmonizacao-corporal/">Harmonização corporal</a></li>
+          <li><a href="tratamentos/flacidez-celulite-estrias/">Flacidez, celulite e estrias</a></li>
+          <li><a href="tratamentos/drenagem-linfatica/">Drenagem linfática</a></li>
+          <li><a href="tratamentos/massagem-redutora/">Massagem redutora</a></li>
+          <li><a href="tratamentos/estetica-facial/">Estética facial</a></li>
+          <li><a href="tratamentos/esmalteria/">Esmalteria</a></li>
+        </ul>
+      </div>
+      <div>
         <h4>Navegue</h4>
         <ul class="rodape__lista">
-          <li><a href="#tratamentos">Tratamentos</a></li>
           <li><a href="#resultados">Antes e depois</a></li>
           <li><a href="#wellhub">Wellhub</a></li>
           <li><a href="#quem-cuida">Quem cuida</a></li>
@@ -1713,6 +1702,8 @@ main > section:not(.hero),.rodape{position:relative;z-index:1}
       </div>
     </div>
     <p class="rodape__fim">© 2026 Ana Flávia Araújo Estética · Itabira/MG</p>
+    <!-- assinatura (templates/componentes/assinatura-rodape.html, regra de 14/10/2026) -->
+    <p class="assinatura">Desenvolvido por <a href="https://marcel0gs.github.io/marcelo-ribeiro-digital/" target="_blank" rel="noopener">Marcelo Ribeiro</a></p>
   </div>
 </footer>
 
