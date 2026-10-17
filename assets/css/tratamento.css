@@ -312,8 +312,8 @@ h1 em,h2 em{font-style:italic;color:var(--nude-texto)}
    Cada foto e um <li>. Pra por foto nova: WebP em assets/img/ (scripts/
    otimizar-imagem.js, 1200px) e copiar uma linha da lista. Toque abre a
    foto grande (a "luz", montada pelo tratamento.js); sem JS, o link abre
-   a imagem sozinha. Foto do Unsplash NUNCA entra aqui: a galeria diz
-   "do estudio".
+   a imagem sozinha. Foto do Unsplash so entra como EXEMPLO marcado
+   (data-exemplo, legenda "Imagem ilustrativa"), ate chegarem as dela.
    ===================================================================== */
 .galeria{
   --tam:clamp(158px,21vw,262px);
@@ -359,6 +359,12 @@ h1 em,h2 em{font-style:italic;color:var(--nude-texto)}
 .galeria__ig span{display:inline-flex;align-items:center;gap:.4rem;margin-top:.2rem;font-size:.72rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--nude-vivo)}
 .galeria__ig span .i{width:15px;height:15px;transition:transform .4s var(--suave)}
 .galeria__ig:hover,.galeria__ig:focus-visible{transform:translateY(-6px);box-shadow:0 26px 50px rgba(46,48,46,.28)}
+/* no celular o quadro tem ~160px: sai a frase, fica icone, titulo e o convite */
+@media (max-width:520px){
+  .galeria__ig{padding:1rem}
+  .galeria__ig small{display:none}
+  .galeria__ig b{font-size:1.25rem}
+}
 .galeria__ig:hover span .i{transform:translate(3px,-3px)}
 .galeria-nota{margin:clamp(1.4rem,3vw,2rem) auto 0;text-align:center;font-size:.86rem;color:var(--tinta-suave);max-width:60ch}
 
