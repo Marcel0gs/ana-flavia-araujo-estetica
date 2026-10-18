@@ -23,12 +23,12 @@
 <meta name="theme-color" content="#F6F3EE">
 
 <!-- canonical e og:image no GitHub Pages enquanto ela nao tiver dominio proprio -->
-<link rel="canonical" href="https://marcel0gs.github.io/ana-flavia-araujo-estetica/">
+<link rel="canonical" href="https://anaflaviaaraujoestetica.com.br/">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Ana Flávia Araújo Estética | Itabira/MG">
 <meta property="og:description" content="Protocolos personalizados e alta tecnologia: Endolift, harmonização corporal, drenagem e estética facial na Esplanada da Estação.">
 <!-- JPEG 1200x630 e URL absoluta: e o que o cartao de link do WhatsApp exige -->
-<meta property="og:image" content="https://marcel0gs.github.io/ana-flavia-araujo-estetica/assets/img/og-capa.jpg">
+<meta property="og:image" content="https://anaflaviaaraujoestetica.com.br/assets/img/og-capa.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="Fachada da Ana Flávia Araújo Estética, com o monograma AF na placa">
@@ -729,6 +729,9 @@ main > section:not(.hero),.rodape{position:relative;z-index:1}
 .quem h2{margin-bottom:.4rem}
 .quem__cargo{font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;color:var(--salvia-texto);margin:0 0 1.4rem}
 .quem p{max-width:60ch;color:var(--tinta-suave)}
+.quem__anos{display:flex;align-items:center;gap:.9rem;width:fit-content;margin:0 0 1.4rem;padding:.75rem 1.3rem .75rem 1.1rem;border-radius:var(--raio);background:var(--areia);border:1px solid var(--linho)}
+.quem__anos strong{font:600 2.6rem/1 var(--serif);color:var(--nude-texto);font-variant-numeric:tabular-nums}
+.quem__anos > span{font-size:.88rem;line-height:1.35}
 
 /* ====================== faixa "um tempo so seu" ======================
    O "Viva a experiencia" da WA: degrade escuro, o monograma gigante em
@@ -942,6 +945,29 @@ main > section:not(.hero),.rodape{position:relative;z-index:1}
   .js .familia:not([hidden]){animation:none}
   .abas__marca{transition:none}
 }
+
+/* ====================== cursor: os arcos da placa seguindo o mouse ======================
+   Molde da Bem Viver. Dois aneis, como os arcos concentricos da placa da
+   fachada: o de dentro acompanha rapido, o de fora atrasa, e quando o mouse
+   para eles assentam um dentro do outro. Cresce no que e clicavel, e o
+   clique solta o respingo de pontinhos da placa. So com mouse de verdade
+   (pointer: fine) e sem "reduzir movimento". O cursor do sistema continua
+   la: o efeito acompanha, nao substitui. */
+.cursor{position:fixed;inset:0;z-index:250;pointer-events:none;transition:opacity .3s}
+.cursor--fora{opacity:0}
+.cursor__anel{position:fixed;left:0;top:0;border-radius:50%;transition:width .35s var(--suave),height .35s var(--suave),margin .35s var(--suave),background .3s,border-color .3s,opacity .3s}
+.cursor__anel:nth-child(1){width:42px;height:42px;margin:-21px 0 0 -21px;border:1.5px solid var(--nude-forte);opacity:.8}
+.cursor__anel:nth-child(2){width:20px;height:20px;margin:-10px 0 0 -10px;border:1.5px solid var(--salvia)}
+.cursor--sobre .cursor__anel:nth-child(1){width:64px;height:64px;margin:-32px 0 0 -32px;background:rgba(216,200,178,.24);opacity:1}
+.cursor--sobre .cursor__anel:nth-child(2){opacity:0}
+.cursor--escuro .cursor__anel:nth-child(1){border-color:var(--nude)}
+.cursor--escuro .cursor__anel:nth-child(2){border-color:var(--claro-suave)}
+.cursor--escuro.cursor--sobre .cursor__anel:nth-child(1){background:rgba(232,220,203,.14);border-color:var(--nude-vivo)}
+.respingo{position:fixed;left:0;top:0;border-radius:50%;pointer-events:none;z-index:251;animation:respingo .7s cubic-bezier(.2,.7,.3,1) forwards}
+@keyframes respingo{
+  from{transform:translate(var(--x0),var(--y0)) translate(-50%,-50%) scale(1);opacity:1}
+  to{transform:translate(var(--x1),var(--y1)) translate(-50%,-50%) scale(.35);opacity:0}
+}
 </style>
 </head>
 <body>
@@ -1068,7 +1094,7 @@ main > section:not(.hero),.rodape{position:relative;z-index:1}
         </a>
         <a class="btn btn--linha" href="#tratamentos">Ver tratamentos</a>
       </div>
-      <p class="hero__nota"><span class="estrelas" aria-hidden="true">★★★★★</span><span><b>5,0 no Google</b> · 37 avaliações</span></p>
+      <p class="hero__nota"><span class="estrelas" aria-hidden="true">★★★★★</span><span><b>5,0 no Google</b> · 37 avaliações · <b>+<span data-anos>8</span> anos</b> atendendo</span></p>
     </div>
   </div>
   <span class="hero__rolar" aria-hidden="true">Role</span>
@@ -1080,6 +1106,7 @@ main > section:not(.hero),.rodape{position:relative;z-index:1}
 <section class="faixa" aria-label="Destaques">
   <div class="faixa__pista">
     <div class="faixa__trilho">
+      <span class="faixa__item"><svg class="i" aria-hidden="true"><use href="#i-relogio"/></svg>Atendendo <b>desde 2018</b></span><span class="faixa__sep"></span>
       <span class="faixa__item"><svg class="i" aria-hidden="true"><use href="#i-estrela"/></svg><b>5,0</b> no Google, 37 avaliações</span><span class="faixa__sep"></span>
       <span class="faixa__item"><svg class="i" aria-hidden="true"><use href="#i-brilho"/></svg>Endolift e harmonização corporal</span><span class="faixa__sep"></span>
       <span class="faixa__item"><svg class="i" aria-hidden="true"><use href="#i-haltere"/></svg>Atendimento pelo <b>Wellhub</b></span><span class="faixa__sep"></span>
@@ -1088,6 +1115,7 @@ main > section:not(.hero),.rodape{position:relative;z-index:1}
       <span class="faixa__item"><svg class="i" aria-hidden="true"><use href="#i-pin"/></svg>Esplanada da Estação · Itabira/MG</span><span class="faixa__sep"></span>
     </div>
     <div class="faixa__trilho" aria-hidden="true">
+      <span class="faixa__item"><svg class="i"><use href="#i-relogio"/></svg>Atendendo <b>desde 2018</b></span><span class="faixa__sep"></span>
       <span class="faixa__item"><svg class="i"><use href="#i-estrela"/></svg><b>5,0</b> no Google, 37 avaliações</span><span class="faixa__sep"></span>
       <span class="faixa__item"><svg class="i"><use href="#i-brilho"/></svg>Endolift e harmonização corporal</span><span class="faixa__sep"></span>
       <span class="faixa__item"><svg class="i"><use href="#i-haltere"/></svg>Atendimento pelo <b>Wellhub</b></span><span class="faixa__sep"></span>
@@ -1183,6 +1211,7 @@ main > section:not(.hero),.rodape{position:relative;z-index:1}
      drenagem e massagem redutora, gordura localizada) e do story do Wellhub.
      Micropigmentação e cílios saíram a pedido dela (16/10/2026).
      Preenchimento labial entrou em 17/10/2026, do catálogo do WhatsApp dela.
+     Botox entrou no mesmo dia, também do catálogo (pedido dele: "se ela pedir, tiramos").
      Cada cartão abre a página do tratamento (tratamentos/<nome>/), com a
      galeria de fotos dela. Sem preço e sem promessa de resultado.
      ⚠ FOTOS DO UNSPLASH, não do estúdio: trocar pelas do Instagram dela.
@@ -1197,7 +1226,7 @@ main > section:not(.hero),.rodape{position:relative;z-index:1}
       </div>
       <div class="abas" role="tablist" aria-label="Famílias de tratamento">
         <button class="aba" type="button" role="tab" id="aba-corpo" aria-controls="t-corpo" aria-selected="true" data-aba>Corpo<b>5</b></button>
-        <button class="aba" type="button" role="tab" id="aba-rosto" aria-controls="t-rosto" aria-selected="false" tabindex="-1" data-aba>Rosto e beleza<b>3</b></button>
+        <button class="aba" type="button" role="tab" id="aba-rosto" aria-controls="t-rosto" aria-selected="false" tabindex="-1" data-aba>Rosto e beleza<b>4</b></button>
         <span class="abas__marca" aria-hidden="true"></span>
       </div>
     </div>
@@ -1335,10 +1364,25 @@ main > section:not(.hero),.rodape{position:relative;z-index:1}
           </a>
         </li>
         <li class="tcard">
+          <a class="tcard__a" href="tratamentos/botox/">
+            <span class="tcard__midia"><img src="assets/img/trat-botox.webp" width="600" height="800" loading="lazy" decoding="async" alt="Profissional de luvas azuis aplicando toxina na testa de uma cliente de olhos fechados"></span>
+            <span class="tcard__brilho" aria-hidden="true"></span>
+            <span class="tcard__n" aria-hidden="true">03</span>
+            <div class="tcard__corpo">
+              <span class="tcard__cat">Rosto</span>
+              <h3>Botox</h3>
+              <div class="tcard__mais"><div>
+                <p class="tcard__txt">Suavização das linhas de expressão, com a dose definida na avaliação.</p>
+                <span class="tcard__cta">Ver o tratamento<svg class="i" aria-hidden="true"><use href="#i-seta"/></svg></span>
+              </div></div>
+            </div>
+          </a>
+        </li>
+        <li class="tcard">
           <a class="tcard__a" href="tratamentos/esmalteria/">
             <span class="tcard__midia"><img src="assets/img/trat-unhas.webp" width="600" height="800" loading="lazy" decoding="async" alt="Esmalte claro sendo aplicado nas unhas de uma cliente"></span>
             <span class="tcard__brilho" aria-hidden="true"></span>
-            <span class="tcard__n" aria-hidden="true">03</span>
+            <span class="tcard__n" aria-hidden="true">04</span>
             <div class="tcard__corpo">
               <span class="tcard__cat">Unhas</span>
               <h3>Esmalteria</h3>
@@ -1462,7 +1506,9 @@ main > section:not(.hero),.rodape{position:relative;z-index:1}
       <span class="olho">Quem cuida de você</span>
       <h2>Ana Flávia Araújo</h2>
       <p class="quem__cargo">Estética corporal e facial · Acadêmica de Biomedicina</p>
-      <p>À frente do estúdio na Esplanada da Estação, a Ana trabalha com protocolos personalizados: cada tratamento é montado a partir do que você quer cuidar, e combina tecnologia, como o Endolift, com as técnicas manuais de drenagem e massagem.</p>
+      <!-- anos contados do CNPJ (aberto em 09/06/2018); o JS corrige o numero todo ano -->
+      <p class="quem__anos"><strong>+<span data-anos>8</span></strong><span>anos cuidando<br>de clientes</span></p>
+      <p>Atendendo desde 2018 e hoje à frente do estúdio na Esplanada da Estação, a Ana trabalha com protocolos personalizados: cada tratamento é montado a partir do que você quer cuidar, e combina tecnologia, como o Endolift, com as técnicas manuais de drenagem e massagem.</p>
       <p>Tem cliente que faz drenagem com ela toda semana e tem quem a acompanha há anos. Elas contam isso nas avaliações do Google.</p>
       <div class="acoes">
         <a class="btn" href="https://wa.me/5531986388648?text=Ol%C3%A1%2C%20Ana!%20Vim%20pelo%20site%20e%20quero%20agendar%20um%20hor%C3%A1rio." target="_blank" rel="noopener">
@@ -1696,6 +1742,7 @@ main > section:not(.hero),.rodape{position:relative;z-index:1}
           <li><a href="tratamentos/massagem-redutora/">Massagem redutora</a></li>
           <li><a href="tratamentos/estetica-facial/">Estética facial</a></li>
           <li><a href="tratamentos/preenchimento-labial/">Preenchimento labial</a></li>
+          <li><a href="tratamentos/botox/">Botox</a></li>
           <li><a href="tratamentos/esmalteria/">Esmalteria</a></li>
         </ul>
       </div>
@@ -2034,6 +2081,74 @@ main > section:not(.hero),.rodape{position:relative;z-index:1}
     }, { threshold: .45 });
     obsAD.observe(quadro);
   });
+
+  /* ---------- anos de atendimento ----------
+     CNPJ aberto em 09/06/2018 (print dele, 17/10/2026). O HTML traz o numero
+     de hoje (8) pra quem le sem JS; aqui ele vira sozinho todo 9 de junho. */
+  var hoje = new Date(), anos = hoje.getFullYear() - 2018;
+  if (hoje.getMonth() < 5 || (hoje.getMonth() === 5 && hoje.getDate() < 9)) anos--;
+  $$("[data-anos]").forEach(function(el){ el.textContent = anos; });
+
+  /* ---------- cursor: os arcos da placa seguindo o mouse ----------
+     Molde da Bem Viver. O anel de fora atrasa mais que o de dentro; o
+     clique solta o respingo de pontinhos da placa. */
+  if (!reduzido && window.matchMedia && matchMedia("(pointer: fine)").matches) {
+    var cur = document.createElement("div");
+    cur.className = "cursor cursor--fora";
+    cur.setAttribute("aria-hidden", "true");
+    cur.innerHTML = '<span class="cursor__anel"></span><span class="cursor__anel"></span>';
+    document.body.appendChild(cur);
+    var aneis = Array.prototype.slice.call(cur.children);
+    var alvo = { x: -100, y: -100 };
+    var pos = aneis.map(function(){ return { x: -100, y: -100 }; });
+    var VEL = [0.14, 0.34];   /* anel de fora, anel de dentro */
+    var rodando = false;
+    var CLICAVEL = "a,button,label,summary,input,select,textarea,[role=button],[role=tab]";
+    var ESCURO = ".topo:not(.topo--rolado),.hero,.faixa,.secao--grafite,.secao--salvia,.exp,.rodape,.tcard";
+    var passo = function(){
+      var mexeu = false;
+      aneis.forEach(function(a, i){
+        var q = pos[i];
+        q.x += (alvo.x - q.x) * VEL[i];
+        q.y += (alvo.y - q.y) * VEL[i];
+        if (Math.abs(alvo.x - q.x) > .2 || Math.abs(alvo.y - q.y) > .2) mexeu = true;
+        a.style.transform = "translate3d(" + q.x.toFixed(1) + "px," + q.y.toFixed(1) + "px,0)";
+      });
+      if (mexeu) requestAnimationFrame(passo); else rodando = false;
+    };
+    document.addEventListener("pointermove", function(e){
+      if (e.pointerType !== "mouse") return;
+      alvo.x = e.clientX; alvo.y = e.clientY;
+      if (cur.classList.contains("cursor--fora")) {
+        pos.forEach(function(q){ q.x = alvo.x; q.y = alvo.y; });
+        cur.classList.remove("cursor--fora");
+      }
+      var t = e.target && e.target.closest ? e.target : null;
+      cur.classList.toggle("cursor--sobre", !!(t && t.closest(CLICAVEL)));
+      cur.classList.toggle("cursor--escuro", !!(t && t.closest(ESCURO)));
+      if (!rodando) { rodando = true; requestAnimationFrame(passo); }
+    }, { passive: true });
+    document.addEventListener("mouseout", function(e){ if (!e.relatedTarget) cur.classList.add("cursor--fora"); });
+    document.addEventListener("pointerdown", function(e){
+      if (e.pointerType !== "mouse") return;
+      var cores = cur.classList.contains("cursor--escuro")
+        ? ["var(--nude-vivo)", "var(--nude)", "var(--salvia)"]
+        : ["var(--grafite)", "var(--nude-forte)", "var(--salvia)"];
+      for (var k = 0; k < 10; k++) {
+        var p = document.createElement("span");
+        var ang = Math.random() * Math.PI * 2, dist = 18 + Math.random() * 40, tam = 2 + Math.round(Math.random() * 4);
+        p.className = "respingo";
+        p.style.width = p.style.height = tam + "px";
+        p.style.background = cores[k % cores.length];
+        p.style.setProperty("--x0", e.clientX + "px");
+        p.style.setProperty("--y0", e.clientY + "px");
+        p.style.setProperty("--x1", (e.clientX + Math.cos(ang) * dist).toFixed(1) + "px");
+        p.style.setProperty("--y1", (e.clientY + Math.sin(ang) * dist).toFixed(1) + "px");
+        document.body.appendChild(p);
+        setTimeout(function(el){ return function(){ if (el.parentNode) el.parentNode.removeChild(el); }; }(p), 760);
+      }
+    });
+  }
 })();
 </script>
 
@@ -2042,8 +2157,9 @@ main > section:not(.hero),.rodape{position:relative;z-index:1}
   "@context": "https://schema.org",
   "@type": "BeautySalon",
   "name": "Ana Flávia Araújo Estética",
-  "image": "https://marcel0gs.github.io/ana-flavia-araujo-estetica/assets/img/og-capa.jpg",
-  "url": "https://marcel0gs.github.io/ana-flavia-araujo-estetica/",
+  "image": "https://anaflaviaaraujoestetica.com.br/assets/img/og-capa.jpg",
+  "url": "https://anaflaviaaraujoestetica.com.br/",
+  "foundingDate": "2018-06-09",
   "telephone": "+55-31-98638-8648",
   "address": {
     "@type": "PostalAddress",

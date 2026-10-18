@@ -432,9 +432,9 @@ h1 em,h2 em{font-style:italic;color:var(--nude-texto)}
 
 /* ====================== outros tratamentos ====================== */
 .outros{list-style:none;margin:0;padding:0;display:grid;gap:clamp(.8rem,1.4vw,1.1rem)}
-/* 7 por pagina desde o preenchimento labial (17/10/2026): uma fileira so a partir
-   de 1100px; abaixo disso vira trilho de arrastar */
-@media (min-width:1100px){.outros{grid-template-columns:repeat(7,minmax(0,1fr))}.outro b{font-size:1.15rem}}
+/* 8 por pagina desde o Botox (17/10/2026): duas fileiras de 4 a partir de
+   1100px; abaixo disso vira trilho de arrastar */
+@media (min-width:1100px){.outros{grid-template-columns:repeat(4,minmax(0,1fr))}.outros .outro{aspect-ratio:16/10}.outro b{font-size:1.15rem}}
 @media (max-width:1099px){
   .outros{
     grid-auto-flow:column;grid-auto-columns:clamp(150px,40vw,210px);
@@ -545,4 +545,27 @@ h1 em,h2 em{font-style:italic;color:var(--nude-texto)}
   .rev-on [data-rev]{opacity:1;translate:none;transition:none}
   .galeria__item:hover,.outro:hover,.passo:hover{transform:none}
   .luz.troca .luz__fig img{animation:none}
+}
+
+/* ====================== cursor: os arcos da placa seguindo o mouse ======================
+   Molde da Bem Viver. Dois aneis, como os arcos concentricos da placa da
+   fachada: o de dentro acompanha rapido, o de fora atrasa, e quando o mouse
+   para eles assentam um dentro do outro. Cresce no que e clicavel, e o
+   clique solta o respingo de pontinhos da placa. So com mouse de verdade
+   (pointer: fine) e sem "reduzir movimento". O cursor do sistema continua
+   la: o efeito acompanha, nao substitui. */
+.cursor{position:fixed;inset:0;z-index:250;pointer-events:none;transition:opacity .3s}
+.cursor--fora{opacity:0}
+.cursor__anel{position:fixed;left:0;top:0;border-radius:50%;transition:width .35s var(--suave),height .35s var(--suave),margin .35s var(--suave),background .3s,border-color .3s,opacity .3s}
+.cursor__anel:nth-child(1){width:42px;height:42px;margin:-21px 0 0 -21px;border:1.5px solid var(--nude-forte);opacity:.8}
+.cursor__anel:nth-child(2){width:20px;height:20px;margin:-10px 0 0 -10px;border:1.5px solid var(--salvia)}
+.cursor--sobre .cursor__anel:nth-child(1){width:64px;height:64px;margin:-32px 0 0 -32px;background:rgba(216,200,178,.24);opacity:1}
+.cursor--sobre .cursor__anel:nth-child(2){opacity:0}
+.cursor--escuro .cursor__anel:nth-child(1){border-color:var(--nude)}
+.cursor--escuro .cursor__anel:nth-child(2){border-color:var(--claro-suave)}
+.cursor--escuro.cursor--sobre .cursor__anel:nth-child(1){background:rgba(232,220,203,.14);border-color:var(--nude-vivo)}
+.respingo{position:fixed;left:0;top:0;border-radius:50%;pointer-events:none;z-index:251;animation:respingo .7s cubic-bezier(.2,.7,.3,1) forwards}
+@keyframes respingo{
+  from{transform:translate(var(--x0),var(--y0)) translate(-50%,-50%) scale(1);opacity:1}
+  to{transform:translate(var(--x1),var(--y1)) translate(-50%,-50%) scale(.35);opacity:0}
 }

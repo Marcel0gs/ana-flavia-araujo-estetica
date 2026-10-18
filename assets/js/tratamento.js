@@ -107,4 +107,64 @@
     if (Math.abs(dx) > 45 && fotos.length > 1) mostra(atual + (dx < 0 ? 1 : -1));
     x0 = null;
   }, { passive: true });
+  /* ---------- cursor: os arcos da placa seguindo o mouse ----------
+     Molde da Bem Viver. O anel de fora atrasa mais que o de dentro; o
+     clique solta o respingo de pontinhos da placa. */
+  if (!reduzido && window.matchMedia && matchMedia("(pointer: fine)").matches) {
+    var cur = document.createElement("div");
+    cur.className = "cursor cursor--fora";
+    cur.setAttribute("aria-hidden", "true");
+    cur.innerHTML = '<span class="cursor__anel"></span><span class="cursor__anel"></span>';
+    document.body.appendChild(cur);
+    var aneis = Array.prototype.slice.call(cur.children);
+    var alvo = { x: -100, y: -100 };
+    var pos = aneis.map(function(){ return { x: -100, y: -100 }; });
+    var VEL = [0.14, 0.34];   /* anel de fora, anel de dentro */
+    var rodando = false;
+    var CLICAVEL = "a,button,label,summary,input,select,textarea,[role=button],[role=tab]";
+    var ESCURO = ".secao--grafite,.secao--salvia,.exp,.rodape";
+    var passo = function(){
+      var mexeu = false;
+      aneis.forEach(function(a, i){
+        var q = pos[i];
+        q.x += (alvo.x - q.x) * VEL[i];
+        q.y += (alvo.y - q.y) * VEL[i];
+        if (Math.abs(alvo.x - q.x) > .2 || Math.abs(alvo.y - q.y) > .2) mexeu = true;
+        a.style.transform = "translate3d(" + q.x.toFixed(1) + "px," + q.y.toFixed(1) + "px,0)";
+      });
+      if (mexeu) requestAnimationFrame(passo); else rodando = false;
+    };
+    document.addEventListener("pointermove", function(e){
+      if (e.pointerType !== "mouse") return;
+      alvo.x = e.clientX; alvo.y = e.clientY;
+      if (cur.classList.contains("cursor--fora")) {
+        pos.forEach(function(q){ q.x = alvo.x; q.y = alvo.y; });
+        cur.classList.remove("cursor--fora");
+      }
+      var t = e.target && e.target.closest ? e.target : null;
+      cur.classList.toggle("cursor--sobre", !!(t && t.closest(CLICAVEL)));
+      cur.classList.toggle("cursor--escuro", !!(t && t.closest(ESCURO)));
+      if (!rodando) { rodando = true; requestAnimationFrame(passo); }
+    }, { passive: true });
+    document.addEventListener("mouseout", function(e){ if (!e.relatedTarget) cur.classList.add("cursor--fora"); });
+    document.addEventListener("pointerdown", function(e){
+      if (e.pointerType !== "mouse") return;
+      var cores = cur.classList.contains("cursor--escuro")
+        ? ["var(--nude-vivo)", "var(--nude)", "var(--salvia)"]
+        : ["var(--grafite)", "var(--nude-forte)", "var(--salvia)"];
+      for (var k = 0; k < 10; k++) {
+        var p = document.createElement("span");
+        var ang = Math.random() * Math.PI * 2, dist = 18 + Math.random() * 40, tam = 2 + Math.round(Math.random() * 4);
+        p.className = "respingo";
+        p.style.width = p.style.height = tam + "px";
+        p.style.background = cores[k % cores.length];
+        p.style.setProperty("--x0", e.clientX + "px");
+        p.style.setProperty("--y0", e.clientY + "px");
+        p.style.setProperty("--x1", (e.clientX + Math.cos(ang) * dist).toFixed(1) + "px");
+        p.style.setProperty("--y1", (e.clientY + Math.sin(ang) * dist).toFixed(1) + "px");
+        document.body.appendChild(p);
+        setTimeout(function(el){ return function(){ if (el.parentNode) el.parentNode.removeChild(el); }; }(p), 760);
+      }
+    });
+  }
 })();
