@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 750" width="600" height="750">
+  <!-- Ilustracao da harmonizacao intima (19/10/2026): silhueta do quadril as coxas, de calcinha,
+       no traco do monograma, com os pontos de aplicacao e os arcos da placa. Sem nudez. -->
+  <title>Ilustração da harmonização íntima</title>
+  <rect width="600" height="750" fill="#F3EFE8"/>
+  <g fill="none" stroke="#E2D8C8" stroke-width="14">
+    <path d="M330 0A270 270 0 0 0 600 270"/>
+    <path d="M372 0A228 228 0 0 0 600 228"/>
+    <path d="M414 0A186 186 0 0 0 600 186"/>
+  </g>
+  <g fill="none" stroke="#E8DCCB" stroke-width="12">
+    <path d="M0 520A230 230 0 0 1 230 750"/>
+    <path d="M0 566A184 184 0 0 1 184 750"/>
+  </g>
+  <!-- calcinha -->
+  <path d="M168 258C230 280 370 280 432 258C402 334 352 442 316 512C306 522 294 522 284 512C248 442 198 334 168 258Z" fill="#E8DCCB"/>
+  <!-- area dos pontos -->
+  <circle cx="300" cy="452" r="66" fill="none" stroke="#BBA585" stroke-width="1.6" stroke-dasharray="3 7" stroke-linecap="round"/>
+  <g fill="#806A4B">
+    <circle cx="278" cy="428" r="3.6"/><circle cx="322" cy="428" r="3.6"/>
+    <circle cx="272" cy="456" r="3.6"/><circle cx="328" cy="456" r="3.6"/>
+    <circle cx="284" cy="482" r="3.6"/><circle cx="316" cy="482" r="3.6"/>
+  </g>
+  <g fill="none" stroke="#464A47" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+    <!-- contorno do corpo -->
+    <path d="M218 64C204 156 142 236 142 332C142 432 176 562 214 706"/>
+    <path d="M382 64C396 156 458 236 458 332C458 432 424 562 386 706"/>
+    <!-- coxas por dentro -->
+    <path d="M290 522C276 590 266 648 262 706"/>
+    <path d="M310 522C324 590 334 648 338 706"/>
+    <!-- calcinha: cos e cavas -->
+    <path d="M168 258C230 280 370 280 432 258"/>
+    <path d="M168 258C198 334 248 442 284 512C294 522 306 522 316 512C352 442 402 334 432 258"/>
+    <!-- umbigo -->
+    <path d="M295 140C297 151 303 151 305 140"/>
+  </g>
+</svg>

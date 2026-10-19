@@ -569,3 +569,29 @@ h1 em,h2 em{font-style:italic;color:var(--nude-texto)}
   from{transform:translate(var(--x0),var(--y0)) translate(-50%,-50%) scale(1);opacity:1}
   to{transform:translate(var(--x1),var(--y1)) translate(-50%,-50%) scale(.35);opacity:0}
 }
+
+/* ====================== harmonizacao intima: ilustracao que mostra o contato ======================
+   Com JS (classe .js no html), o convite comeca escondido e a ilustracao fica no centro; o toque
+   poe .intimo--aberto e o convite entra ao lado (embaixo, no celular). Sem JS, aparece direto. */
+.intimo{position:relative;display:grid;gap:clamp(1.6rem,4vw,3rem);align-items:center;justify-content:center;max-width:900px;margin:0 auto}
+@media (min-width:760px){.intimo{grid-template-columns:minmax(0,420px) minmax(0,1fr)}}
+.js .intimo:not(.intimo--aberto){grid-template-columns:minmax(0,420px)}
+.intimo__ilustra{
+  position:relative;display:block;width:100%;max-width:420px;margin:0 auto;padding:0;border:0;
+  border-radius:20px;overflow:hidden;background:var(--linho);box-shadow:0 16px 36px rgba(60,50,30,.13);
+  cursor:pointer;transition:transform .5s var(--suave),box-shadow .5s ease;
+}
+.intimo__ilustra img{display:block;width:100%;height:auto}
+.intimo__ilustra:hover,.intimo__ilustra:focus-visible{transform:translateY(-6px);box-shadow:0 26px 50px rgba(60,50,30,.2)}
+.intimo__ilustra:focus-visible{outline:2px solid var(--grafite);outline-offset:4px}
+.intimo__toque{
+  position:absolute;left:50%;bottom:1.1rem;translate:-50% 0;display:inline-flex;align-items:center;gap:.45rem;
+  padding:.6rem 1.05rem;border-radius:999px;background:rgba(58,62,59,.88);color:var(--claro);
+  font:500 .88rem/1 var(--sans);white-space:nowrap;transition:opacity .35s ease;
+}
+.intimo__toque .i{width:16px;height:16px}
+.intimo--aberto .intimo__toque{opacity:0}
+.intimo__lado{transition:opacity .6s ease,transform .7s var(--suave),visibility .6s}
+.js .intimo:not(.intimo--aberto) .intimo__lado{position:absolute;opacity:0;visibility:hidden;transform:translateX(-18px);pointer-events:none}
+.intimo__lado h3{margin:0 0 .6rem;font:500 clamp(1.5rem,3vw,1.9rem)/1.2 var(--serif);color:var(--tinta)}
+.intimo__lado p{margin:0 0 1.4rem;color:var(--tinta-suave)}
