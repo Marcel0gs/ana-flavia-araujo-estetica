@@ -394,6 +394,19 @@ h1 em,h2 em{font-style:italic;color:var(--nude-texto)}
    :where() zera a especificidade, secao com fundo proprio manda. */
 main > section:not(.hero),.rodape{position:relative;z-index:1}
 :where(main > section:not(.hero)){background-color:var(--creme)}
+/* Na tela de toque cada secao vira camada propria, recortada na propria
+   caixa e de fundo solido: o navegador a trata como opaca, e bloco ainda nao
+   pintado sai na cor da secao em vez de mostrar o hero travado por tras (o
+   "espaco vazio" ao rolar logo na primeira abertura, 21/10/2026). A faixa fica
+   fora: canto redondo e sombra nao sao opacos. Secao com fundo so de degrade
+   precisa da cor por baixo, senao nao conta (main > ganha da regra de degrade,
+   que vem depois). */
+@media (hover:none){
+  main > section:not(.hero):not(.faixa){will-change:transform;overflow:clip}
+  main > .secao--wellhub{background-color:#FBE5EA}
+  main > .exp{background-color:var(--grafite-3)}
+  main > .avaliacoes-secao{background-color:var(--salvia-funda)}
+}
 .faixa{
   margin-top:-30px;border-radius:30px 30px 0 0;
   background:var(--grafite);border-top:1px solid rgba(216,200,178,.3);
