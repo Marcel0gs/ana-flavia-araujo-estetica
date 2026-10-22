@@ -432,11 +432,11 @@ h1 em,h2 em{font-style:italic;color:var(--nude-texto)}
 
 /* ====================== outros tratamentos ====================== */
 .outros{list-style:none;margin:0;padding:0;display:grid;gap:clamp(.8rem,1.4vw,1.1rem)}
-/* 9 por pagina desde a harmonizacao intima (19/10/2026): tres fileiras de 3 a
-   partir de 1100px; abaixo disso vira trilho de arrastar */
-/* 4:5 e nao 16:9 (22/10/2026, pedido dele): as fotos sao em pe, e o card deitado so mostrava
+/* 8 por pagina desde que a esmalteria saiu (22/10/2026): duas fileiras de 4 a partir de
+   1100px; abaixo disso vira trilho de arrastar. Se voltar a ser 9, volta pra 3 colunas.
+   4:5 e nao 16:9 (22/10/2026, pedido dele): as fotos sao em pe, e o card deitado so mostrava
    uma faixa do meio, sem dar pra saber que parte do corpo era. */
-@media (min-width:1100px){.outros{grid-template-columns:repeat(3,minmax(0,1fr))}.outros .outro{aspect-ratio:4/5}.outro b{font-size:1.2rem}}
+@media (min-width:1100px){.outros{grid-template-columns:repeat(4,minmax(0,1fr))}.outros .outro{aspect-ratio:4/5}.outro b{font-size:1.15rem}}
 @media (max-width:1099px){
   .outros{
     grid-auto-flow:column;grid-auto-columns:clamp(150px,40vw,210px);
