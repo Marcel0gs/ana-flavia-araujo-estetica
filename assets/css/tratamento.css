@@ -198,7 +198,7 @@ h1 em,h2 em{font-style:italic;color:var(--nude-texto)}
   background:var(--linho);box-shadow:0 34px 70px rgba(46,48,46,.22);
 }
 .pt__moldura img{width:100%;height:100%;object-fit:cover;animation:respira 16s ease-in-out infinite alternate}
-@keyframes respira{from{scale:1.02}to{scale:1.08}}
+@keyframes respira{from{scale:1}to{scale:1.03}}
 .pt__arcos{
   position:absolute;z-index:0;left:calc(var(--w) - var(--r));top:calc(var(--r) - var(--s));
   width:var(--s);height:var(--s);scale:-1 1;overflow:visible;pointer-events:none;
@@ -434,7 +434,9 @@ h1 em,h2 em{font-style:italic;color:var(--nude-texto)}
 .outros{list-style:none;margin:0;padding:0;display:grid;gap:clamp(.8rem,1.4vw,1.1rem)}
 /* 9 por pagina desde a harmonizacao intima (19/10/2026): tres fileiras de 3 a
    partir de 1100px; abaixo disso vira trilho de arrastar */
-@media (min-width:1100px){.outros{grid-template-columns:repeat(3,minmax(0,1fr))}.outros .outro{aspect-ratio:16/9}.outro b{font-size:1.2rem}}
+/* 4:5 e nao 16:9 (22/10/2026, pedido dele): as fotos sao em pe, e o card deitado so mostrava
+   uma faixa do meio, sem dar pra saber que parte do corpo era. */
+@media (min-width:1100px){.outros{grid-template-columns:repeat(3,minmax(0,1fr))}.outros .outro{aspect-ratio:4/5}.outro b{font-size:1.2rem}}
 @media (max-width:1099px){
   .outros{
     grid-auto-flow:column;grid-auto-columns:clamp(150px,40vw,210px);
@@ -455,7 +457,7 @@ h1 em,h2 em{font-style:italic;color:var(--nude-texto)}
 .outro small{font-size:.6rem;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--nude-vivo)}
 .outro b{margin-top:.3rem;font:500 1.3rem/1.1 var(--serif)}
 .outro:hover,.outro:focus-visible{transform:translateY(-6px);box-shadow:0 28px 56px rgba(0,0,0,.42)}
-.outro:hover img{scale:1.07}
+.outro:hover img{scale:1.03}
 .outro:focus-visible{outline:2px solid var(--nude-vivo);outline-offset:4px}
 .outros-volta{margin:clamp(1.6rem,3vw,2.2rem) 0 0;font-size:.95rem;color:var(--claro-suave)}
 .outros-volta a{color:var(--nude-vivo)}

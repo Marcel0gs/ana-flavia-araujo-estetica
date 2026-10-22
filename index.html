@@ -536,7 +536,9 @@ main > section:not(.hero),.rodape{position:relative;z-index:1}
   transition:transform .6s var(--suave),box-shadow .6s var(--suave);
 }
 .tcard__midia{display:block;position:absolute;inset:0;z-index:-2;overflow:hidden}
-.tcard__midia img{position:absolute;top:0;left:-9%;width:118%;max-width:none;height:100%;object-fit:cover;transition:scale 1.2s var(--suave)}
+/* 106% e nao 118% (22/10/2026, pedido dele: a foto cortava demais e nao dava pra ver a parte do
+   corpo). A sobra de 3% de cada lado e a folga do parallax lateral, que caiu de 7% pra 2,5%. */
+.tcard__midia img{position:absolute;top:0;left:-3%;width:106%;max-width:none;height:100%;object-fit:cover;transition:scale 1.2s var(--suave)}
 .tcard__a::after{
   content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
   background:linear-gradient(180deg,rgba(28,30,29,.25) 0%,rgba(28,30,29,0) 22%,rgba(28,30,29,0) 46%,rgba(28,30,29,.62) 72%,rgba(28,30,29,.94) 100%);
@@ -564,7 +566,7 @@ main > section:not(.hero),.rodape{position:relative;z-index:1}
   .tcard__a:hover .tcard__mais,.tcard__a:focus-visible .tcard__mais{grid-template-rows:1fr;opacity:1}
   .tcard__a:hover{transform:translateY(-8px);box-shadow:0 34px 70px rgba(0,0,0,.45)}
   .tcard__a:hover::before{box-shadow:inset 0 0 0 1px rgba(232,220,203,.65)}
-  .tcard__a:hover .tcard__midia img{scale:1.07}
+  .tcard__a:hover .tcard__midia img{scale:1.03}
   .tcard__a:hover .tcard__brilho{translate:130% 0}
   .tcard__a:hover .tcard__cta .i{transform:translate(3px,-3px)}
 }
@@ -1923,7 +1925,7 @@ main > section:not(.hero),.rodape{position:relative;z-index:1}
           var r = c.getBoundingClientRect();
           var dd = (r.left + r.width / 2 - meio) / caixa.width;
           dd = dd < -1 ? -1 : dd > 1 ? 1 : dd;
-          if (fotosV[k]) fotosV[k].style.translate = (dd * -7).toFixed(2) + "% 0";
+          if (fotosV[k]) fotosV[k].style.translate = (dd * -2.5).toFixed(2) + "% 0";
         });
       }
     };
