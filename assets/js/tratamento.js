@@ -123,6 +123,69 @@
       }
     });
   }
+  /* ---------- 3b. galeria por area do corpo (22/10/2026, pedido dele) ----------
+     Botoes em cima da galeria (Todas, Abdomen, Gluteos...) e, em "Todas", as fotos
+     agrupadas por area, cada grupo com titulo e uma frase. A lista de areas e o texto
+     de cada uma moram no <ul data-areas> do HTML (data-txt no botao); cada foto diz a
+     area no data-area do <li> (mais de uma: separadas por espaco). Foto sem area so
+     aparece em "Todas", no fim, antes do quadro do Instagram. Area sem foto leva um
+     <li class="galeria__vazio-li"> com o aviso. Sem JS: botoes escondidos, galeria de
+     sempre. Menos de 2 areas: nao monta nada. */
+  (function(){
+    var nav = $("[data-areas]");
+    var gal = nav && nav.parentNode.querySelector(".galeria");
+    if (!nav || !gal) return;
+    var botoes = $$("button[data-area]", nav);
+    if (botoes.length < 3) return;
+    var itens = $$("li", gal).filter(function(li){ return li.parentNode === gal; });
+    var ig = itens.filter(function(li){ return !!li.querySelector(".galeria__ig"); });
+    var temArea = function(li, a){ return (" " + (li.getAttribute("data-area") || "") + " ").indexOf(" " + a + " ") >= 0; };
+    var usados = [], frag = document.createDocumentFragment();
+    botoes.forEach(function(b){
+      var a = b.getAttribute("data-area");
+      if (a === "todas") return;
+      var nome = b.textContent.trim();
+      var n = itens.filter(function(li){ return temArea(li, a) && li.querySelector("[data-luz]"); }).length;
+      if (n) b.insertAdjacentHTML("beforeend", '<span class="areas__n">' + n + "</span>");
+      var t = document.createElement("li");
+      t.className = "galeria__grupo";
+      t.setAttribute("data-grupo", a);
+      t.innerHTML = "<b></b><span></span>";
+      t.firstChild.textContent = nome;
+      t.lastChild.textContent = b.getAttribute("data-txt") || "";
+      frag.appendChild(t);
+      itens.forEach(function(li){
+        if (usados.indexOf(li) < 0 && ig.indexOf(li) < 0 && temArea(li, a)) { usados.push(li); frag.appendChild(li); }
+      });
+    });
+    var total = itens.filter(function(li){ return li.querySelector("[data-luz]"); }).length;
+    botoes[0].insertAdjacentHTML("beforeend", '<span class="areas__n">' + total + "</span>");
+    /* foto sem area ganha o grupo "Mais fotos": sem titulo, ela pareceria ser da ultima area */
+    var soltas = itens.filter(function(li){ return usados.indexOf(li) < 0 && ig.indexOf(li) < 0; });
+    if (soltas.length) {
+      var m = document.createElement("li");
+      m.className = "galeria__grupo";
+      m.setAttribute("data-grupo", "outros");
+      m.innerHTML = "<b>Mais fotos</b>";
+      frag.appendChild(m);
+      soltas.forEach(function(li){ frag.appendChild(li); });
+    }
+    ig.forEach(function(li){ frag.appendChild(li); });
+    gal.appendChild(frag);
+    function filtra(a){
+      botoes.forEach(function(b){ b.setAttribute("aria-pressed", b.getAttribute("data-area") === a ? "true" : "false"); });
+      $$("li", gal).forEach(function(li){
+        if (li.parentNode !== gal) return;
+        li.hidden = !(a === "todas" || li.getAttribute("data-grupo") === a || temArea(li, a));
+        /* foto que ainda nao tinha passado na tela fica com opacity 0 (entrada ao rolar): revela */
+        if (!li.hidden && a !== "todas") li.classList.add("visto");
+      });
+    }
+    botoes.forEach(function(b){ b.addEventListener("click", function(){ filtra(b.getAttribute("data-area")); }); });
+    nav.hidden = false;
+    filtra("todas");
+  })();
+
   /* ---------- 4. galeria: a foto grande ----------
      So os quadros com data-luz abrem aqui (o do video vai direto pro
      Instagram). Sem suporte a <dialog>, o link abre a imagem sozinha. */
@@ -142,20 +205,24 @@
     '<button class="luz__btn luz__prox" type="button" aria-label="Próxima foto">' + icone("i-dir") + '</button>';
   document.body.appendChild(luz);
   var img = $("img", luz), leg = $("figcaption", luz), conta = $(".luz__conta", luz), atual = 0;
+  /* so as fotos visiveis: com uma area escolhida (3b), as setas andam so dentro dela */
+  var lista = fotos;
 
   function mostra(n){
-    atual = (n + fotos.length) % fotos.length;
-    var a = fotos[atual], mini = $("img", a);
+    atual = (n + lista.length) % lista.length;
+    var a = lista[atual], mini = $("img", a);
     luz.classList.remove("troca"); void luz.offsetWidth; luz.classList.add("troca");
     img.src = a.getAttribute("href");
     img.alt = mini ? mini.alt : "";
     leg.textContent = a.getAttribute("data-legenda") || "";
-    conta.textContent = (atual + 1) + " / " + fotos.length;
+    conta.textContent = (atual + 1) + " / " + lista.length;
   }
-  fotos.forEach(function(a, i){
+  fotos.forEach(function(a){
     a.addEventListener("click", function(e){
       e.preventDefault();
-      mostra(i);
+      lista = fotos.filter(function(f){ return f.offsetParent !== null; });
+      if (!lista.length) lista = fotos;
+      mostra(Math.max(0, lista.indexOf(a)));
       luz.showModal();
     });
   });
@@ -173,7 +240,7 @@
   luz.addEventListener("touchend", function(e){
     if (x0 === null) return;
     var dx = e.changedTouches[0].clientX - x0;
-    if (Math.abs(dx) > 45 && fotos.length > 1) mostra(atual + (dx < 0 ? 1 : -1));
+    if (Math.abs(dx) > 45 && lista.length > 1) mostra(atual + (dx < 0 ? 1 : -1));
     x0 = null;
   }, { passive: true });
 })();

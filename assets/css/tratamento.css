@@ -363,6 +363,35 @@ h1 em,h2 em{font-style:italic;color:var(--nude-texto)}
 .galeria__item:hover::after,.galeria__item:focus-visible::after,
 .galeria__item:hover .galeria__leg,.galeria__item:focus-visible .galeria__leg{opacity:1;transform:none}
 @media (hover:none){.galeria__item::after,.galeria__leg{opacity:1;transform:none}}
+/* ---------- galeria por area do corpo (22/10/2026, pedido dele) ----------
+   Montada pelo tratamento.js (3b) a partir do <ul data-areas> e do data-area de cada foto. */
+.areas{display:flex;flex-wrap:wrap;justify-content:center;gap:.5rem;margin:0 0 clamp(1.4rem,3vw,2.2rem);padding:0;list-style:none}
+.areas[hidden]{display:none}
+.areas button{
+  display:inline-flex;align-items:center;gap:.5rem;padding:.6rem 1.05rem;border-radius:99px;
+  border:1px solid var(--linho);background:var(--papel);color:var(--tinta);
+  font:500 .86rem/1 var(--sans);letter-spacing:.02em;cursor:pointer;
+  transition:background .3s ease,color .3s ease,border-color .3s ease,transform .3s var(--suave);
+}
+.areas button:hover{border-color:var(--nude-forte);transform:translateY(-2px)}
+.areas button:focus-visible{outline:2px solid var(--nude-forte);outline-offset:3px}
+.areas button[aria-pressed="true"]{background:var(--grafite);border-color:var(--grafite);color:var(--claro)}
+.areas__n{display:inline-grid;place-items:center;min-width:1.45rem;height:1.45rem;padding:0 .35rem;border-radius:99px;background:var(--areia);color:var(--nude-texto);font-size:.72rem}
+.areas button[aria-pressed="true"] .areas__n{background:rgba(255,255,255,.14);color:var(--claro)}
+.galeria > li.galeria__grupo{width:100%;text-align:center;margin:clamp(1rem,2.6vw,1.8rem) 0 .1rem}
+.galeria > li.galeria__grupo:first-child{margin-top:0}
+.galeria__grupo b{display:block;font:500 clamp(1.45rem,2.4vw,1.8rem)/1.1 var(--serif);color:var(--tinta)}
+.galeria__grupo span{display:block;margin-top:.3rem;font-size:.92rem;color:var(--tinta-suave)}
+.galeria__vazio{
+  display:flex;flex-direction:column;justify-content:center;align-items:center;gap:.55rem;aspect-ratio:4/5;
+  padding:1.2rem;border-radius:20px;border:1.5px dashed var(--nude-forte);background:var(--papel);text-align:center;color:var(--tinta);
+}
+.galeria__vazio .i{width:28px;height:28px;color:var(--nude-forte)}
+.galeria__vazio b{font:500 1.3rem/1.15 var(--serif)}
+.galeria__vazio small{font-size:.84rem;line-height:1.45;color:var(--tinta-suave)}
+.galeria__vazio a{display:inline-flex;align-items:center;gap:.4rem;margin-top:.3rem;font-size:.74rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--nude-texto);text-decoration:none}
+.galeria__vazio a .i{width:16px;height:16px;color:currentColor}
+@media (prefers-reduced-motion:reduce){.areas button{transition:none}}
 /* o ultimo quadro sempre leva pro Instagram dela */
 .galeria__ig{
   position:relative;overflow:hidden;isolation:isolate;
