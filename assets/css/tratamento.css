@@ -626,3 +626,11 @@ h1 em,h2 em{font-style:italic;color:var(--nude-texto)}
 .js .intimo:not(.intimo--aberto) .intimo__lado{position:absolute;opacity:0;visibility:hidden;transform:translateX(-18px);pointer-events:none}
 .intimo__lado h3{margin:0 0 .6rem;font:500 clamp(1.5rem,3vw,1.9rem)/1.2 var(--serif);color:var(--tinta)}
 .intimo__lado p{margin:0 0 1.4rem;color:var(--tinta-suave)}
+.intimo-ex{display:flex;justify-content:center;margin-top:clamp(1.6rem,4vw,2.4rem)}
+.intimo-ex__btn{position:relative;display:block;width:min(100%,260px);border-radius:14px;overflow:hidden;box-shadow:0 14px 34px rgba(60,50,30,.16);transition:transform .4s var(--suave),box-shadow .4s}
+.intimo-ex__btn img{display:block;width:100%;height:auto}
+.intimo-ex__btn:hover,.intimo-ex__btn:focus-visible{transform:translateY(-4px);box-shadow:0 22px 44px rgba(60,50,30,.22)}
+.intimo-ex__btn:focus-visible{outline:2px solid var(--grafite);outline-offset:4px}
+.intimo-ex__txt{position:absolute;inset:auto 0 0 0;display:grid;gap:.2rem;justify-items:center;text-align:center;padding:1.2rem .8rem .9rem;background:linear-gradient(transparent,rgba(30,26,20,.78));color:#fff;font:600 .95rem/1.2 var(--sans,inherit)}
+.intimo-ex__txt .i{width:18px;height:18px}
+.intimo-ex__txt small{font-weight:400;font-size:.75rem;opacity:.9}
